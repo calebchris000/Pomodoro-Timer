@@ -29,8 +29,8 @@ const Timer = () => {
   const { isRunning, currentMinutes } = useSelector((store) => store.Home);
   const [minute, setMinute] = useState(range);
   const [second, setSecond] = useState(0);
-  const [relaxAudio] = useState(new Audio("../../../public/audio/relaxed.mp3"));
-  const [alarm] = useState(new Audio("../../../public/audio/alarm.mp3"));
+  const [relaxAudio] = useState(new Audio("./audio/relaxed.mp3"));
+  const [alarm] = useState(new Audio("./audio/alarm.mp3"));
   const [timerState, setTimerState] = useState({
     start: false,
     pause: false,
