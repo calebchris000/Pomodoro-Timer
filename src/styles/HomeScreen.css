@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,600;0,700;1,400&display=swap");
+
+
+
+.range::-webkit-slider-runnable-track {
+    background-color: #E6BFED; /* Set color of track */
+    border-radius: 5px; /* Set border radius of track */
+  }
+
+  .range::-webkit-slider-thumb {
+    background-color: #252B4E;
+  }
