@@ -3,7 +3,11 @@
     "ignorePaths": [],
     "dictionaryDefinitions": [],
     "dictionaries": [],
-    "words": [],
-    "ignoreWords": ["@tailwind"],
+    "words": [
+        "Pomodoro"
+    ],
+    "ignoreWords": [
+        "@tailwind"
+    ],
     "import": []
 }
