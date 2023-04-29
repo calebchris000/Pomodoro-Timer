@@ -1,13 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  currentMinutes: 0,
+  currentMinutes: 25,
   currentSeconds: 0,
   isRunning: false,
-  rounds: 0,
-  goals: 0,
-  roundsOf: 0,
-  goalsOf: 0,
 };
 
 const HomeSlice = createSlice({
@@ -36,5 +32,5 @@ const HomeSlice = createSlice({
   },
 });
 
-export const { setTimer, startPause, runningTimer } = HomeSlice.actions;
+export const { setTimer, startPause, runningTimer, goOnBreak } = HomeSlice.actions;
 export default HomeSlice.reducer;

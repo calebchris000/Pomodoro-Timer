@@ -52,18 +52,18 @@ const SoundButtons = () => {
         SOUND
       </h2>
 
-      <div className="grid relative max-w-md text-violet-bg gap-3 box-border top-40 grid-cols-3 button-collection">
+      <div className="grid relative max-w-md m-auto text-violet-bg gap-3 box-border top-40 grid-cols-3 button-collection">
         <button className="bg-violet-lighter text-center p-4 flex flex-col justify-center rounded-xl">
-          <span className="self-center text-md mb-2">FOCUS MUSIC</span>
+          <span className="font-semibold self-center text-md mb-2">FOCUS MUSIC</span>
           <span className="self-center text-xs font-normal">Ticking</span>
         </button>
 
         <button className="bg-violet-lighter text-violet-bg text-center p-4 flex flex-col justify-center rounded-xl">
-          <span className="self-center text-md mb-2">LONG BREAK</span>
+          <span className="font-semibold self-center text-md mb-2">LONG BREAK</span>
           <span className="self-center text-xs font-normal">Ticking</span>
         </button>
         <button className="bg-violet-lighter text-violet-bg text-center p-4 flex flex-col justify-center rounded-xl">
-          <span className="self-center text-md mb-2">SHORT BREAK</span>
+          <span className="font-semibold self-center text-md mb-2">SHORT BREAK</span>
           <span className="self-center text-xs font-normal">Ticking</span>
         </button>
       </div>
