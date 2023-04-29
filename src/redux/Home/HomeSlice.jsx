@@ -3,23 +3,28 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   currentMinutes: 25,
   currentSeconds: 0,
-  isRunning: false,
 };
 
 const HomeSlice = createSlice({
   name: "Home",
   initialState,
   reducers: {
+    addTimer: (state, { payload }) => {
+      return {
+        ...state,
+        currentMinutes: state.currentMinutes + payload,
+      };
+    },
+    removeTimer: (state, { payload }) => {
+      return {
+        ...state,
+        currentMinutes: Math.abs(state.currentMinutes - payload),
+      };
+    },
     setTimer: (state, { payload }) => ({
       ...state,
       currentMinutes: payload,
     }),
-    startPause: (state, { payload }) => {
-      return {
-        ...state,
-        isRunning: payload ? payload : !state.isRunning,
-      };
-    },
     reset: (state, { payload }) => ({
       ...state,
       currentMinutes: payload,
@@ -32,5 +37,5 @@ const HomeSlice = createSlice({
   },
 });
 
-export const { setTimer, startPause, runningTimer, goOnBreak } = HomeSlice.actions;
+export const { setTimer, runningTimer, goOnBreak, addTimer, removeTimer } = HomeSlice.actions;
 export default HomeSlice.reducer;

@@ -2,18 +2,16 @@ import { faCirclePause, faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import CountDownTimer from "../TimerLogic/TimerLogic";
-import { runningTimer, setTimer, startPause } from "../../redux/Home/HomeSlice";
+import { addTimer, removeTimer, runningTimer, setTimer } from "../../redux/Home/HomeSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { renderNotification } from "../../redux/Notification/NotificationSlice";
-import { Goals, ResetRound, Rounds, goOnBreak } from "../../redux/Timer/TimerSlice";
+import { Goals, ResetGoals, ResetRound, Rounds, goOnBreak } from "../../redux/Timer/TimerSlice";
 
 const Timer = () => {
-  const { currentMinutes } = useSelector((store) => store.Home);
+  const { currentMinutes, currentSeconds } = useSelector((store) => store.Home);
   const { rounds, goals, onBreak } = useSelector((store) => store.Pomodoro);
   const dispatch = useDispatch();
   const [button, setButton] = useState(false);
-  const [minute, setMinute] = useState(25);
-  const [second, setSecond] = useState(0);
   const [isAdded, setIsAdded] = useState(false);
   const [relaxAudio] = useState(new Audio("./audio/relaxed.mp3"));
   const [alarm] = useState(new Audio("./audio/alarm.mp3"));
@@ -26,13 +24,13 @@ const Timer = () => {
   useEffect(() => {
     relaxAudio.loop = true;
     relaxAudio.volume = 0.5;
-      Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-          new Notification("Welcome to Pomodoro Timer");
-        } else if (permission === "denied") {
-          alert("Enable notification to get the most out of the app.");
-        }
-      });
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        new Notification("Welcome to Pomodoro Timer");
+      } else if (permission === "denied") {
+        alert("Enable notification to get the most out of the app.");
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -47,12 +45,12 @@ const Timer = () => {
       });
     }
 
-    if (minute === 0 && second === 0) {
+    if (currentMinutes === 0 && currentSeconds === 0) {
       if (rounds >= 3) {
         setButton(true);
         dispatch(renderNotification("1 goal complete. Long break begins."));
         new Notification("1 goal complete. Long break begins.");
-        setMinute(30);
+        dispatch(setTimer(30));
         handleTimerState(true, false, false);
         dispatch(setTimer(30));
         dispatch(goOnBreak(true));
@@ -62,8 +60,8 @@ const Timer = () => {
       }
       if (!onBreak) {
         setButton(true);
-        setMinute(15);
         handleTimerState(true, false, false);
+        dispatch(setTimer(15));
         dispatch(setTimer(15));
         dispatch(renderNotification("Short break started."));
         new Notification("Short break started");
@@ -73,7 +71,6 @@ const Timer = () => {
       } else if (onBreak) {
         setButton(true);
         dispatch(setTimer(25));
-        setMinute(25);
         handleTimerState(true, false, false);
         new Notification("Resume Activity.");
         dispatch(renderNotification("Resume Activity."));
@@ -92,13 +89,11 @@ const Timer = () => {
 
       return;
     }
-  }, [minute, second]);
+  }, [currentMinutes, currentSeconds]);
 
   useEffect(() => {
-    const timer = new CountDownTimer(minute, second, (min, sec) => {
+    const timer = new CountDownTimer(currentMinutes, currentSeconds, (min, sec) => {
       dispatch(runningTimer({ min, sec }));
-      setMinute(min);
-      setSecond(sec);
     });
 
     const { start, pause } = timerState;
@@ -112,7 +107,6 @@ const Timer = () => {
   function handleClick() {
     setButton(!button);
     button ? relaxAudio.pause() : relaxAudio.play();
-    dispatch(startPause());
     timerState.start
       ? setTimerState((state) => {
           return {
@@ -131,10 +125,10 @@ const Timer = () => {
   }
 
   function handleReset() {
-    dispatch(startPause(false));
+    dispatch(ResetRound());
+    dispatch(ResetGoals());
     setButton(false);
-    setMinute(25);
-    setSecond(0);
+    dispatch(runningTimer({ min: 25, sec: 0 }));
     relaxAudio.pause();
     relaxAudio.currentTime = 0;
     setTimerState((state) => {
@@ -149,36 +143,28 @@ const Timer = () => {
 
   function addFiveMinutes() {
     setIsAdded(!isAdded);
-    setMinute((minute) => {
-      if (minute < 60 && minute + 5 <= 59) {
-        dispatch(renderNotification("Five minutes added"));
-        return minute + 5;
-      } else {
-        dispatch(renderNotification("Cannot add minutes more than 60"));
-        setSecond(59);
-        return (minute = 59);
-      }
-    });
+    if (currentMinutes < 60 && currentMinutes + 5 <= 59) {
+      dispatch(addTimer(5));
+      dispatch(renderNotification("Five minutes added"));
+    } else {
+      dispatch(setTimer(59));
+    }
   }
 
   function removeFiveMinutes() {
     setIsAdded(!isAdded);
-    setMinute((minute) => {
-      if (minute > 0 && minute - 5 >= 0) {
-        dispatch(renderNotification("Five minutes remove"));
-        return minute - 5;
-      } else {
-        alarm.pause();
-        alarm.currentTime = 0;
-        return (minute = 0);
-      }
-    });
+    if (currentMinutes > 0 && currentMinutes - 5 >= 0) {
+      dispatch(removeTimer(5));
+      dispatch(renderNotification("Five minutes removed"));
+    } else {
+      dispatch(setTimer(0));
+    }
   }
 
   return (
     <section className="flex box-border flex-col mx-5 my-10 text-violet-lighter">
       <h2 className="text-8xl select-none font-[poppins] font-semibold text-center">
-        {minute}:{second < 10 ? `0${second}` : second}
+        {currentMinutes}:{currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
       </h2>
       <button onClick={handleClick} className="text-8xl w-fit p-0 m-auto text-center my-2 ">
         {button ? <FontAwesomeIcon icon={faCirclePause} /> : <FontAwesomeIcon icon={faCirclePlay} />}
