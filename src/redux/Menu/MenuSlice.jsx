@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   menuActive: false,
+  musicFiles: [],
 };
 
 const MenuSlice = createSlice({
@@ -15,8 +16,13 @@ const MenuSlice = createSlice({
         menuActive: !state.menuActive,
       };
     },
+    loadMusicFiles: (_, { payload }) => {
+      return {
+        musicFiles: payload,
+      };
+    },
   },
 });
 
-export const { toggleMenu } = MenuSlice.actions;
+export const { toggleMenu, loadMusicFiles } = MenuSlice.actions;
 export default MenuSlice.reducer;
