@@ -15,7 +15,7 @@ const Modal = () => {
   if (info !== null) {
     return (
       <>
-        <h3 className="w-fit font-bold m-auto fixed top-10 p-3 rounded-xl bg-orange-400 left-0 right-0 text-violet-bg">{info}</h3>
+        <h3 className="w-fit z-10 font-bold m-auto fixed top-10 p-3 rounded-xl bg-orange-400 left-0 right-0 text-violet-bg">{info}</h3>
       </>
     );
   }
