@@ -22,6 +22,7 @@ const Timer = () => {
   });
 
   useEffect(() => {
+    //* Setup the background music on load
     relaxAudio.loop = true;
     relaxAudio.volume = 0.5;
     Notification.requestPermission().then((permission) => {
@@ -29,9 +30,19 @@ const Timer = () => {
         new Notification("Welcome to Pomodoro Timer");
       }
     });
+    //* Setup the local storage or retreives data
+    const storedData = JSON.parse(localStorage.getItem("pomo"));
+    if (storedData !== null) {
+      const { min, sec } = storedData;
+      dispatch(runningTimer({ min, sec }));
+    } else {
+      const stringified = JSON.stringify({ min: currentMinutes, sec: currentSeconds });
+      localStorage.setItem("pomo", stringified);
+    }
   }, []);
 
   useEffect(() => {
+    //* Inline function to set the timer state
     function handleTimerState(start, pause, stop) {
       setTimerState((timerState) => {
         return {
@@ -42,7 +53,7 @@ const Timer = () => {
         };
       });
     }
-
+    //* Compound conditions responsible for manipulating the timer events
     if (currentMinutes === 0 && currentSeconds === 0) {
       if (rounds === 4) {
         setButton(true);
@@ -83,15 +94,15 @@ const Timer = () => {
       // new Notification("Timer complete, Good job!.");
       dispatch(runningTimer({ min: 25, sec: 0 }));
       handleTimerState(false, false, true);
-      dispatch(ResetGoals())
-      dispatch(ResetRound())
+      dispatch(ResetGoals());
+      dispatch(ResetRound());
       dispatch(renderNotification("Timer complete, Good job!."));
-
       return;
     }
   }, [currentMinutes, currentSeconds]);
 
   useEffect(() => {
+    //* Core countdown useEffect. Initializes the countdown
     const timer = new CountDownTimer(currentMinutes, currentSeconds, (min, sec) => {
       dispatch(runningTimer({ min, sec }));
     });
@@ -105,6 +116,7 @@ const Timer = () => {
   }, [timerState, isAdded]);
 
   function handleClick() {
+    //* Start/pause button. Handles the running timer
     setButton(!button);
     button ? relaxAudio.pause() : relaxAudio.play();
     timerState.start
@@ -122,9 +134,13 @@ const Timer = () => {
             pause: false,
           };
         });
+    //* Updates the local storage on pause or continue
+    const stringified = JSON.stringify({ min: currentMinutes, sec: currentSeconds });
+    localStorage.setItem("pomo", stringified);
   }
 
   function handleReset() {
+    //* Sets the timer to default settings.
     dispatch(ResetRound());
     dispatch(ResetGoals());
     setButton(false);
@@ -139,6 +155,9 @@ const Timer = () => {
         stop: true,
       };
     });
+    //* Resets localstorage values
+    const stringified = JSON.stringify({ min: 25, sec: 0 });
+    localStorage.setItem("pomo", stringified);
   }
 
   function addFiveMinutes() {
