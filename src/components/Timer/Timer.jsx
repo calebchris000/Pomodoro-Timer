@@ -13,6 +13,7 @@ const Timer = () => {
   const dispatch = useDispatch();
   const [button, setButton] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
+  const [isDesktop] = useState(window.innerWidth >= 1024);
   const [relaxAudio] = useState(new Audio("./audio/relaxed.mp3"));
   const [alarm] = useState(new Audio("./audio/alarm.mp3"));
   const [timerState, setTimerState] = useState({
@@ -29,10 +30,18 @@ const Timer = () => {
     const storedData = JSON.parse(localStorage.getItem("pomo"));
     if (storedData !== null) {
       const { min, sec } = storedData;
-      min > 59 ? dispatch(runningTimer({ min: 59, sec })): dispatch(runningTimer({ min, sec }))
+      min > 59 ? dispatch(runningTimer({ min: 59, sec })) : dispatch(runningTimer({ min, sec }));
     } else {
       const stringified = JSON.stringify({ min: currentMinutes, sec: currentSeconds });
       localStorage.setItem("pomo", stringified);
+    }
+
+    if (isDesktop) {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          new Notification("Welcome to Pomodoro Timer");
+        }
+      });
     }
   }, []);
 
@@ -48,11 +57,18 @@ const Timer = () => {
         };
       });
     }
+
+    function handleNotification(value) {
+      if (isDesktop) {
+        new Notification(value);
+      }
+    }
     //* Compound conditions responsible for manipulating the timer events
     if (currentMinutes === 0 && currentSeconds === 0) {
       if (rounds === 4) {
         setButton(true);
         dispatch(renderNotification("1 goal complete. Long break begins."));
+        handleNotification("1 goal complete. Long break begins.");
         dispatch(setTimer(30));
         handleTimerState(true, false, false);
         dispatch(goOnBreak(true));
@@ -65,6 +81,7 @@ const Timer = () => {
         handleTimerState(true, false, false);
         dispatch(setTimer(15));
         dispatch(renderNotification("Short break started."));
+        handleNotification("Short break started.");
         dispatch(goOnBreak(true));
         return;
       } else if (onBreak) {
@@ -73,6 +90,7 @@ const Timer = () => {
         dispatch(setTimer(25));
         handleTimerState(true, false, false);
         dispatch(renderNotification("Resume Activity."));
+        handleNotification("Resume Activity.");
         dispatch(goOnBreak(false));
         return;
       }
@@ -146,6 +164,9 @@ const Timer = () => {
         stop: true,
       };
     });
+    if (isDesktop) {
+      new Notification("Timer reset.");
+    }
     //* Resets localstorage values
     const stringified = JSON.stringify({ min: 25, sec: 0 });
     localStorage.setItem("pomo", stringified);
@@ -156,6 +177,9 @@ const Timer = () => {
     if (currentMinutes < 60 && currentMinutes + 5 <= 59) {
       dispatch(addTimer(5));
       dispatch(renderNotification("Five minutes added"));
+      if (isDesktop) {
+        new Notification("Five minutes added");
+      }
     } else {
       dispatch(setTimer(59));
     }
@@ -166,6 +190,9 @@ const Timer = () => {
     if (currentMinutes > 0 && currentMinutes - 5 >= 0) {
       dispatch(removeTimer(5));
       dispatch(renderNotification("Five minutes removed"));
+      if (isDesktop) {
+        new Notification("Five minutes removed");
+      }
     } else {
       dispatch(setTimer(0));
     }
