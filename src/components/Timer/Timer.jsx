@@ -30,11 +30,11 @@ const Timer = () => {
         new Notification("Welcome to Pomodoro Timer");
       }
     });
-    //* Setup the local storage or retreives data
+    //* Setup the local storage or retrieves data
     const storedData = JSON.parse(localStorage.getItem("pomo"));
     if (storedData !== null) {
       const { min, sec } = storedData;
-      dispatch(runningTimer({ min, sec }));
+      min > 59 ? dispatch(runningTimer({ min: 59, sec })): dispatch(runningTimer({ min, sec }))
     } else {
       const stringified = JSON.stringify({ min: currentMinutes, sec: currentSeconds });
       localStorage.setItem("pomo", stringified);
