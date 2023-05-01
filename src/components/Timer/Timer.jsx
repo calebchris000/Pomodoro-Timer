@@ -25,11 +25,6 @@ const Timer = () => {
     //* Setup the background music on load
     relaxAudio.loop = true;
     relaxAudio.volume = 0.5;
-    Notification.requestPermission().then((permission) => {
-      if (permission === "granted") {
-        new Notification("Welcome to Pomodoro Timer");
-      }
-    });
     //* Setup the local storage or retrieves data
     const storedData = JSON.parse(localStorage.getItem("pomo"));
     if (storedData !== null) {
@@ -58,7 +53,6 @@ const Timer = () => {
       if (rounds === 4) {
         setButton(true);
         dispatch(renderNotification("1 goal complete. Long break begins."));
-        // new Notification("1 goal complete. Long break begins.");
         dispatch(setTimer(30));
         handleTimerState(true, false, false);
         dispatch(goOnBreak(true));
@@ -71,7 +65,6 @@ const Timer = () => {
         handleTimerState(true, false, false);
         dispatch(setTimer(15));
         dispatch(renderNotification("Short break started."));
-        // new Notification("Short break started");
         dispatch(goOnBreak(true));
         return;
       } else if (onBreak) {
@@ -79,7 +72,6 @@ const Timer = () => {
         dispatch(Rounds());
         dispatch(setTimer(25));
         handleTimerState(true, false, false);
-        // new Notification("Resume Activity.");
         dispatch(renderNotification("Resume Activity."));
         dispatch(goOnBreak(false));
         return;
@@ -91,7 +83,6 @@ const Timer = () => {
       relaxAudio.currentTime = 0;
       alarm.play();
       alarm.loop = false;
-      // new Notification("Timer complete, Good job!.");
       dispatch(runningTimer({ min: 25, sec: 0 }));
       handleTimerState(false, false, true);
       dispatch(ResetGoals());
