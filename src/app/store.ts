@@ -7,10 +7,11 @@ type Theme = {
 };
 
 type Timer = {
-  hour: number;
-  minute: number;
-  seconds: number;
-  signal: string | null;
+  time: { minutes: number; seconds: number };
+  break: { minutes: number; seconds: number };
+  prepare: boolean;
+  signal: string;
+  percentage: number
 };
 interface Defaults {
   theme: Theme;
@@ -25,13 +26,17 @@ let defaults: Defaults = {
     cto: "#2b7bcb",
   },
   timer: {
-    hour: 0,
-    minute: 0,
-    seconds: 0,
-    signal: null
+    signal: "",
+    time: { minutes: 0, seconds: 5 },
+    break: {minutes: 5, seconds: 0},
+    prepare: false,
+    percentage: 100
   },
 
   currentPage: "home",
 };
 
 export const store: Writable<Defaults> = writable(defaults);
+
+
+store.subscribe(defaults => console.log(defaults.timer.signal))

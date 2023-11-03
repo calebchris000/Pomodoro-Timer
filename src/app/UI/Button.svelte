@@ -3,11 +3,7 @@
   import { store } from "../store";
   export let className: string = ''
 
-  $: signal = $store.timer.signal
 
-  if(signal === 'start') {
-    text = 'I need a break'
-  }
   $: cto = $store.theme.cto;
 
 </script>

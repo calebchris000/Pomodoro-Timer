@@ -1,6 +1,7 @@
 export interface TimerInterface {
   minutes: number;
   seconds: number;
+  fullSeconds: number
 }
 
 export class Timer {
@@ -24,7 +25,7 @@ export class Timer {
     }
     let getSecondsInMinute = minute * 60;
     this.seconds = getSecondsInMinute + seconds;
-    let TimerInterface: TimerInterface = { minutes: Math.floor(this.seconds / 60) % 60, seconds: this.seconds % 60 };
+    let TimerInterface: TimerInterface = { minutes: Math.floor(this.seconds / 60) % 60, seconds: this.seconds % 60, fullSeconds: this.seconds };
 
     this.callback(TimerInterface);
   }
@@ -37,7 +38,7 @@ export class Timer {
 
     this.interval = setInterval(() => {
       this.seconds -= 1;
-      let TimerInterface: TimerInterface = { minutes: Math.floor(this.seconds / 60) % 60, seconds: this.seconds % 60 };
+      let TimerInterface: TimerInterface = { minutes: Math.floor(this.seconds / 60) % 60, seconds: this.seconds % 60, fullSeconds: this.seconds };
       this.callback(TimerInterface);
     }, 1000);
   }
@@ -47,7 +48,7 @@ export class Timer {
       clearInterval(this.interval);
       this.interval = null;
     }
-    let TimerInterface: TimerInterface = { minutes: Math.floor(this.seconds / 60) % 60, seconds: this.seconds % 60 };
+    let TimerInterface: TimerInterface = { minutes: Math.floor(this.seconds / 60) % 60, seconds: this.seconds % 60, fullSeconds:this.seconds };
     this.callback(TimerInterface);
   }
 
@@ -59,13 +60,13 @@ export class Timer {
     this.seconds = 0;
     this.minute = 0;
 
-    let TimerInterface: TimerInterface = { minutes: Math.floor(this.seconds / 60) % 60, seconds: this.seconds % 60 };
+    let TimerInterface: TimerInterface = { minutes: Math.floor(this.seconds / 60) % 60, seconds: this.seconds % 60, fullSeconds: this.seconds };
     this.callback(TimerInterface);
   }
 
   updateTimer(minute?: number | any, seconds?: number | any) {
     this.seconds = minute * 60 + seconds;
-    let TimerInterface: TimerInterface = { minutes: Math.floor(this.seconds / 60) % 60, seconds: this.seconds % 60 };
+    let TimerInterface: TimerInterface = { minutes: Math.floor(this.seconds / 60) % 60, seconds: this.seconds % 60, fullSeconds: this.seconds };
 
     this.callback(TimerInterface);
   }
