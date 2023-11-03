@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Button from "../UI/Button.svelte";
-  import Navigation from "../UI/Navigation.svelte";
-  import Timer from "../UI/Timer.svelte";
-  import TipCard from "../UI/TipCard.svelte";
+  import Button from "./Button.svelte";
+  import Navigation from "./Navigation.svelte";
+  import Timer from "./Timer.svelte";
+  import TipCard from "./TipCard.svelte";
 </script>
 
 <section class="bg-[#ffdbb9] w-full h-[100vh] flex flex-col gap-8 app">
