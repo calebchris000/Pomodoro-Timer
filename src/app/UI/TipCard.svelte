@@ -7,8 +7,8 @@
   $: secondary = $store.theme.secondary;
 </script>
 
-<section class="tip-card-body bg-[{secondary}] rounded-xl py-4 flex gap-4 px-5 items-center">
-  <div class="w-14 h-14 bg-[{primary}] flex items-center justify-center rounded-lg">
+<section style="background-color: {secondary};" class="tip-card-body rounded-xl py-4 flex gap-4 px-5 items-center">
+  <div style="background-color: {primary};" class="w-14 h-14 flex items-center justify-center rounded-lg">
     <Icon icon="tabler:briefcase" class="w-10 h-10" />
   </div>
 

@@ -3,10 +3,15 @@
   import { store } from "../store";
   export let className: string = ''
 
+  $: signal = $store.timer.signal
+
+  if(signal === 'start') {
+    text = 'I need a break'
+  }
   $: cto = $store.theme.cto;
 
 </script>
 
-<button class="bg-[{cto}] w-fit px-16 p-4 block mx-auto rounded-lg font-semibold text-lg {className}">
+<button style="background-color: {cto};" on:click class="w-fit px-16 p-4 block mx-auto rounded-lg font-semibold text-lg {className}">
   {text}
 </button>

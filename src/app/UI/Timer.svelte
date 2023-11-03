@@ -1,11 +1,20 @@
 <script lang="ts">
+  import type { TimerInterface } from "./../Logic/Timer.ts";
   import TimerBody from "./TimerBody.svelte";
   import { store } from "../store";
+  import { Timer } from "../Logic/Timer";
 
   let timerType: string = "Work Time";
 
   $: primary = $store.theme.primary;
   $: cto = $store.theme.cto;
+
+  let timerInterface: TimerInterface = { minutes: 0, seconds: 0 };
+  let timer = new Timer((c: any) => {
+    timerInterface = c;
+  });
+
+  timer.set(25, 0);
 </script>
 
 <TimerBody>
@@ -13,9 +22,9 @@
 
   <div
     style="background: radial-gradient(closest-side, {primary} 82%, transparent 80% 100%), conic-gradient({cto} 70%, white 0);"
-    class="progress-bar w-[12rem] h-[12rem] bg-[{cto}] rounded-full flex flex-col items-center justify-center"
+    class="progress-bar w-[12rem] h-[12rem] rounded-full flex flex-col items-center justify-center"
   >
     <p class="text-sm font-semibold">Time Left:</p>
-    <h3 class="text-5xl font-semibold mb-5">12:00</h3>
+    <h3 class="text-5xl font-semibold mb-5">{timerInterface.minutes}:{timerInterface.seconds}</h3>
   </div>
 </TimerBody>
