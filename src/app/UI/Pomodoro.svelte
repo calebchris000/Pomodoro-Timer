@@ -7,16 +7,6 @@
   $: primary = $store.theme.primary;
   $: currentPage = $store.currentPage;
 
-  $: {
-    if(currentPage === 'home') {
-      console.log('toggle home')
-      document.title = 'Home'
-    }
-    else {
-      console.log('toggle settings')
-      document.title = 'Settings'
-    }
-  }
   
   // $: console.log(currentPage);
 </script>
@@ -32,11 +22,15 @@
 </section>
 
 <svelte:head>
-  <title>Home</title>
+  <title>{currentPage === 'home' ? 'Home' : 'Settings'}</title>
 </svelte:head>
 
 <style>
   .app {
     font-family: "Poppins", sans-serif;
+  }
+
+  :root {
+    user-select: none
   }
 </style>

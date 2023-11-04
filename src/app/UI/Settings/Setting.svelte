@@ -12,7 +12,6 @@
     breakSelected = event.detail;
   }
 
-  console.log('mounted')
 </script>
 
 <section style="background-color: {primary};" class="w-full h-[100vh] flex flex-col items-center gap-8 app">
@@ -40,10 +39,6 @@
     </div>
   </div>
 </section>
-
-<svelte:head>
-    <title>Settings</title>
-</svelte:head>
 
 <style>
   .custom-time {

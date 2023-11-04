@@ -7,11 +7,13 @@
   $: timerSignal = $store.timer.signal;
 
   let startButton: string = "Begin!";
-  let endButton: string = "End this session";
+  // let endButton: string = "End this session";
   function sendBeginSignal() {
     store.update((defaults) => {
       let signal = defaults.timer.signal;
-      if (signal === "ongoing") {
+      if (signal === "pause") {
+        sendResumeSignal();
+      } else if (signal === "ongoing") {
         sendBreakSignal();
       } else {
         defaults.timer.signal = "ongoing";
@@ -30,6 +32,16 @@
     });
   }
 
+  function sendResumeSignal() {
+    store.update((defaults) => {
+      let signal = defaults.timer.signal;
+      if (signal === "pause") {
+        defaults.timer.signal = "resume";
+      }
+      return defaults;
+    });
+  }
+
   function sendStopSignal() {
     store.update((defaults) => {
       let signal = defaults.timer.signal;
@@ -42,6 +54,9 @@
     switch (timerSignal) {
       case "ongoing":
         startButton = "I need a break";
+        break;
+      case "resume":
+        startButton = 'I need a break'
         break;
       case "pause":
         startButton = "Shall we continue?";

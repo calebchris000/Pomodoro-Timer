@@ -28,7 +28,7 @@ let defaults: Defaults = {
     cto: "#2b7bcb",
   },
   timer: {
-    signal: "",
+    signal: "reset",
     time: { minutes: 25, seconds: 0 },
     break: { minutes: 5, seconds: 0 },
     prepare: false,

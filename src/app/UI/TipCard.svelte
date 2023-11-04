@@ -18,6 +18,10 @@
         title = "Take your time";
         description = "But not too much 😀";
         break;
+      case "resume":
+        title = 'This is your work time'
+        description = "Let's focus on getting things done.";
+        break;
       case "reset":
         title = "Timer hasn't begun";
         description = "Let's be productive today.";
