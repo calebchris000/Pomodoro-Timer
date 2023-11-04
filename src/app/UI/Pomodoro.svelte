@@ -4,9 +4,9 @@
   import Navigation from "./Navigation.svelte";
   import { store } from "../store";
   import Setting from "./Settings/Setting.svelte";
-  import Timer from "./Timer.svelte";
   import { Timer as TimerLogic } from "../Logic/Timer";
   import type { TimerInterface } from "../Logic/Timer";
+  import Splash from "./Splash.svelte";
   import { onMount } from "svelte";
   $: primary = $store.theme.primary;
   $: currentPage = $store.currentPage;
@@ -64,15 +64,21 @@
   }
 
   timer.set(timeFromStore.minutes, timeFromStore.seconds);
+
+    setTimeout(() => {
+      $store.currentPage = "home";
+    }, 3000);
 </script>
 
 <section style="background-color: {primary};" class="w-full h-[100vh] fixed overflow-y-scroll flex flex-col gap-8 app">
   <Navigation />
 
-  {#if currentPage === "home"}
-    <Home />
-  {:else if currentPage === "settings"}
-    <Setting />
+  {#if currentPage === "splash"}
+  <Splash />
+  {:else if currentPage === "home"}
+  <Home />
+  {:else if currentPage === 'settings'}
+  <Setting />
   {/if}
 </section>
 

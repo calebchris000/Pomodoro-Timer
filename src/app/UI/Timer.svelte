@@ -20,7 +20,6 @@
   $: primary = $store.theme.primary;
   $: cto = $store.theme.cto;
   $: runningTimer = $store.timer.runningTimer;
-  // $: console.log(runningTimer)
 
   $: {
     let timeToSeconds = Math.floor(timeFromStore.minutes * 60) + timeFromStore.seconds;

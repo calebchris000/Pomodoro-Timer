@@ -41,7 +41,7 @@ let defaults: Defaults = {
     selectedBreakMinute: '5 minutes'
   },
 
-  currentPage: "home",
+  currentPage: "splash",
 };
 
 export const store: Writable<Defaults> = writable(defaults);
@@ -76,8 +76,7 @@ let data = localStorage.getItem("data");
 if (data && data.length > 0) {
   let parsed = JSON.parse(data);
   if (isDefaults(parsed)) {
-    console.log('yes')
-    store.set(parsed);
+    store.set({...parsed, currentPage: 'splash'});
   }
   else {
     localStorage.clear()
