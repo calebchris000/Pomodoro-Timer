@@ -15,6 +15,7 @@
   $: {
     if (text === selected && type === "current") {
       $store.timer.time.minutes = value;
+      $store.timer.runningTimer.minutes = value
       $store.settings.selectedMinute = text;
     } else if (text === selected && type === "break") {
       $store.timer.break.minutes = value;
