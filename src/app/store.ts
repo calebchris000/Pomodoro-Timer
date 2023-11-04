@@ -46,14 +46,37 @@ let defaults: Defaults = {
 
 export const store: Writable<Defaults> = writable(defaults);
 
-function isDefaults(variable: any): variable is Defaults {
-  return variable && variable.theme && variable.timer && typeof variable.currentPage === "string";
+
+function isDefaults(obj: any): obj is Defaults {
+  return obj &&
+    typeof obj.theme === 'object' &&
+    typeof obj.theme.primary === 'string' &&
+    typeof obj.theme.secondary === 'string' &&
+    typeof obj.theme.cto === 'string' &&
+    typeof obj.timer === 'object' &&
+    typeof obj.timer.time === 'object' &&
+    typeof obj.timer.time.minutes === 'number' &&
+    typeof obj.timer.time.seconds === 'number' &&
+    typeof obj.timer.runningTimer === 'object' &&
+    typeof obj.timer.runningTimer.minutes === 'number' &&
+    typeof obj.timer.runningTimer.seconds === 'number' &&
+    typeof obj.timer.break === 'object' &&
+    typeof obj.timer.break.minutes === 'number' &&
+    typeof obj.timer.break.seconds === 'number' &&
+    typeof obj.timer.prepare === 'boolean' &&
+    typeof obj.timer.signal === 'string' &&
+    typeof obj.timer.percentage === 'number' &&
+    typeof obj.settings === 'object' &&
+    typeof obj.settings.selectedMinute === 'string' &&
+    typeof obj.settings.selectedBreakMinute === 'string' &&
+    typeof obj.currentPage === 'string';
 }
 
 let data = localStorage.getItem("data");
 if (data && data.length > 0) {
   let parsed = JSON.parse(data);
   if (isDefaults(parsed)) {
+    console.log('yes')
     store.set(parsed);
   }
   else {
