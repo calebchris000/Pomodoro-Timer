@@ -9,45 +9,44 @@
   let startButton: string = "Begin!";
   // let endButton: string = "End this session";
   function sendBeginSignal() {
-    store.update((defaults) => {
-      let signal = defaults.timer.signal;
-      if (signal === "pause") {
-        sendResumeSignal();
-      } else if (signal === "ongoing") {
-        sendBreakSignal();
-      } else {
-        defaults.timer.signal = "ongoing";
-      }
-      return defaults;
-    });
+    let signal = $store.timer.signal;
+    if (signal === "pause") {
+      sendResumeSignal();
+      return;
+    } else if (signal === "ongoing") {
+      $store.timer.signal = "pause";
+      sendBreakSignal();
+      return;
+    } else {
+      $store.timer.signal = "ongoing";
+      return;
+    }
   }
 
   function sendBreakSignal() {
-    store.update((defaults) => {
-      let signal = defaults.timer.signal;
-      if (signal !== "break") {
-        defaults.timer.signal = "break";
-      }
-      return defaults;
-    });
+    let signal = $store.timer.signal;
+
+    if (signal !== "break") {
+      $store.timer.signal = "break";
+
+      return;
+    }
   }
 
   function sendResumeSignal() {
-    store.update((defaults) => {
-      let signal = defaults.timer.signal;
-      if (signal === "pause") {
-        defaults.timer.signal = "resume";
-      }
-      return defaults;
-    });
+    let signal = $store.timer.signal;
+
+    if (signal === "pause" ) {
+      $store.timer.signal = "resume";
+      return;
+    }
   }
 
   function sendStopSignal() {
-    store.update((defaults) => {
-      let signal = defaults.timer.signal;
-      defaults.timer.signal = signal !== "reset" ? "reset" : signal;
-      return defaults;
-    });
+    if ($store.timer.signal === "reset") {
+      return;
+    }
+    $store.timer.signal = "reset";
   }
 
   $: {
@@ -56,7 +55,7 @@
         startButton = "I need a break";
         break;
       case "resume":
-        startButton = 'I need a break'
+        startButton = "I need a break";
         break;
       case "pause":
         startButton = "Shall we continue?";

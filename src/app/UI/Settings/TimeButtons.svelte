@@ -14,18 +14,11 @@
 
   $: {
     if (text === selected && type === "current") {
-      store.update((defaults) => {
-        defaults.timer.time.minutes = value;
-        defaults.settings.selectedMinute = text;
-        return defaults;
-      });
-    }
-    else if(text === selected && type ==='break') {
-        store.update((defaults) => {
-        defaults.timer.break.minutes = value;
-        defaults.settings.selectedBreakMinute = text;
-        return defaults;
-      });
+      $store.timer.time.minutes = value;
+      $store.settings.selectedMinute = text;
+    } else if (text === selected && type === "break") {
+      $store.timer.break.minutes = value;
+      $store.settings.selectedBreakMinute = text;
     }
   }
 </script>

@@ -9,6 +9,7 @@ type Theme = {
 
 type Timer = {
   time: { minutes: number; seconds: number };
+  runningTimer: {minutes: number, seconds: number}
   break: { minutes: number; seconds: number };
   prepare: boolean;
   signal: string;
@@ -30,6 +31,7 @@ let defaults: Defaults = {
   timer: {
     signal: "reset",
     time: { minutes: 25, seconds: 0 },
+    runningTimer: {minutes: 0, seconds: 0},
     break: { minutes: 5, seconds: 0 },
     prepare: false,
     percentage: 100,
@@ -59,6 +61,5 @@ if (data && data.length > 0) {
   }
 }
 store.subscribe((defaults) => {
-  console.log(defaults.timer.signal)
   localStorage.setItem("data", JSON.stringify(defaults));
 });
