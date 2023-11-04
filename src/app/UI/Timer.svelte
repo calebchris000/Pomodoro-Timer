@@ -37,10 +37,7 @@
 <TimerBody>
   <h3 class="text-center text-2xl font-semibold">{timerType}</h3>
 
-  <!-- svelte-ignore missing-declaration -->
-  <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <div
+  <button
     on:click={sendPauseSignal}
     style="background: radial-gradient(closest-side, {primary} 82%, transparent 80% 100%), conic-gradient({cto} {percentage}%, white 0);"
     class="progress-bar w-[12rem] h-[12rem] rounded-full flex flex-col items-center justify-center"
@@ -49,5 +46,5 @@
     <h3 class="text-5xl font-semibold mb-5">
       {String(runningTimer.minutes).length === 1 ? 0 : ""}{runningTimer.minutes}:{String(runningTimer.seconds).length === 1 ? 0 : ""}{runningTimer.seconds}
     </h3>
-  </div>
+  </button>
 </TimerBody>

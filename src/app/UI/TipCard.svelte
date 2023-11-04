@@ -25,9 +25,11 @@
       case "reset":
         title = "Timer hasn't begun";
         description = "Let's be productive today.";
+        break;
       case 'break':
         title = "You're on Break"
         description = 'Relax a little. You deserve it.'
+        break;
     }
   }
 </script>
