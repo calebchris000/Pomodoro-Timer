@@ -10,16 +10,16 @@
   // let endButton: string = "End this session";
   function sendBeginSignal() {
     let signal = $store.timer.signal;
-    if (signal === "pause") {
-      sendResumeSignal();
-      return;
-    } else if (signal === "ongoing") {
-      $store.timer.signal = "pause";
-      sendBreakSignal();
-      return;
-    } else {
-      $store.timer.signal = "ongoing";
-      return;
+    switch (signal) {
+      case "pause":
+        sendResumeSignal();
+        break;
+      case "ongoing":
+        sendBreakSignal();
+        break;
+      default:
+        $store.timer.signal = "ongoing";
+        break;
     }
   }
 
@@ -36,7 +36,7 @@
   function sendResumeSignal() {
     let signal = $store.timer.signal;
 
-    if (signal === "pause" ) {
+    if (signal === "pause") {
       $store.timer.signal = "resume";
       return;
     }
