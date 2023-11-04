@@ -42,7 +42,7 @@
     timer.start();
   }
   $: {
-    if (timerInterface.seconds === 0 && $store.timer.signal === "ongoing") {
+    if (timerInterface.fullSeconds === 0 && $store.timer.signal === "ongoing") {
       store.update((defaults) => {
         defaults.timer.signal = "break";
         return defaults;

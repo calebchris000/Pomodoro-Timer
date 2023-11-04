@@ -1,3 +1,4 @@
+import { onMount } from "svelte";
 import { writable, type Writable } from "svelte/store";
 
 type Theme = {
@@ -11,11 +12,12 @@ type Timer = {
   break: { minutes: number; seconds: number };
   prepare: boolean;
   signal: string;
-  percentage: number
+  percentage: number;
 };
 interface Defaults {
   theme: Theme;
   timer: Timer;
+  settings: { selectedMinute: string, selectedBreakMinute: string };
   currentPage: string;
 }
 
@@ -27,10 +29,14 @@ let defaults: Defaults = {
   },
   timer: {
     signal: "",
-    time: { minutes: 0, seconds: 5 },
-    break: {minutes: 5, seconds: 0},
+    time: { minutes: 25, seconds: 0 },
+    break: { minutes: 5, seconds: 0 },
     prepare: false,
-    percentage: 100
+    percentage: 100,
+  },
+  settings: {
+    selectedMinute: '25 minutes',
+    selectedBreakMinute: '5 minutes'
   },
 
   currentPage: "home",
@@ -38,5 +44,21 @@ let defaults: Defaults = {
 
 export const store: Writable<Defaults> = writable(defaults);
 
+function isDefaults(variable: any): variable is Defaults {
+  return variable && variable.theme && variable.timer && typeof variable.currentPage === "string";
+}
 
-store.subscribe(defaults => console.log(defaults.timer.signal))
+let data = localStorage.getItem("data");
+if (data && data.length > 0) {
+  let parsed = JSON.parse(data);
+  if (isDefaults(parsed)) {
+    store.set(parsed);
+  }
+  else {
+    localStorage.clear()
+  }
+}
+store.subscribe((defaults) => {
+  console.log(defaults.timer.signal)
+  localStorage.setItem("data", JSON.stringify(defaults));
+});
