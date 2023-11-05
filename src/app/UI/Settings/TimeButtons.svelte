@@ -15,10 +15,12 @@
   $: {
     if (text === selected && type === "current") {
       $store.timer.time.minutes = value;
+      $store.timer.time.seconds = 0;
       $store.timer.runningTimer.minutes = value
       $store.settings.selectedMinute = text;
     } else if (text === selected && type === "break") {
       $store.timer.break.minutes = value;
+      $store.timer.break.seconds = 0;
       $store.settings.selectedBreakMinute = text;
     }
   }
