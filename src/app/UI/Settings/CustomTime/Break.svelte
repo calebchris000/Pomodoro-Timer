@@ -33,7 +33,8 @@
   }
 
   function setTimer() {
-    $store.settings.BreakTimes = [...$store.settings.BreakTimes, {minutes, seconds, text: String(minutes) + " minutes"}]
+    let formattedText = seconds !== 0 ? `${minutes} min ${seconds} secs` : `${minutes} minutes`
+    $store.settings.BreakTimes = [...$store.settings.BreakTimes, {minutes, seconds, text: formattedText}]
     openBreakModal = false
     dispatch('clicked', openBreakModal)
   }

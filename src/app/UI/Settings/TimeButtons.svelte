@@ -12,7 +12,6 @@
     dispatch("clicked", { text, value });
   }
 
-  $: console.log(selected);
 
   $: {
     if (text === selected.text) {

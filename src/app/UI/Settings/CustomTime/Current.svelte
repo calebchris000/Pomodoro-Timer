@@ -33,7 +33,9 @@
   }
 
   function setTimer() {
-    $store.settings.Times = [...$store.settings.Times, {minutes, seconds, text: String(minutes) + " minutes"}]
+    let formattedText = seconds !== 0 ? `${minutes} min ${seconds} secs` : `${minutes} minutes`
+
+    $store.settings.Times = [...$store.settings.Times, {minutes, seconds, text: formattedText}]
     openModal = false
     dispatch('clicked', openModal)
   }

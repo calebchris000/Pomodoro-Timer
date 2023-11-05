@@ -45,8 +45,8 @@ export function isDefaults(obj: any): obj is Defaults {
     typeof obj.timer.break.seconds === "number" &&
     typeof obj.timer.prepare === "boolean" &&
     typeof obj.timer.signal === "string" &&
-    typeof obj.timer.Times === "object" &&
-    typeof obj.timer.BreakTimes === "object" &&
+    typeof obj.settings.Times === "object" &&
+    typeof obj.settings.BreakTimes === "object" &&
     typeof obj.timer.percentage === "number" &&
     typeof obj.settings === "object" &&
     typeof obj.settings.selectedTimeOption === "string" &&
