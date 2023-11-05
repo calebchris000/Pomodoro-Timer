@@ -4,11 +4,11 @@
   const dispatch = createEventDispatcher();
   import Modal from "./Modal.svelte";
   import KeyPad from "./KeyPad.svelte";
-  export let openModal: boolean = true;
+  export let openBreakModal: boolean = true;
 
   function handleClicked() {
-    openModal = false;
-    dispatch("clicked", openModal);
+    openBreakModal = false;
+    dispatch("clicked", openBreakModal);
   }
 
   $: primary = $store.theme.primary;
@@ -33,13 +33,13 @@
   }
 
   function setTimer() {
-    $store.settings.Times = [...$store.settings.Times, {minutes, seconds, text: String(minutes) + " minutes"}]
-    openModal = false
-    dispatch('clicked', openModal)
+    $store.settings.BreakTimes = [...$store.settings.BreakTimes, {minutes, seconds, text: String(minutes) + " minutes"}]
+    openBreakModal = false
+    dispatch('clicked', openBreakModal)
   }
 </script>
 
-<Modal on:clicked={handleClicked} {openModal}>
+<Modal on:clicked={handleClicked} openModal={openBreakModal}>
   <section
     style="background-color: {primary};"
     class="w-[70%] h-[80%] rounded-xl fixed flex flex-col gap-4 p-3 px-6 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { store } from "./../../store";
+  import Break from "./CustomTime/Break.svelte";
   import Current from "./CustomTime/Current.svelte";
   import TimeButtons from "./TimeButtons.svelte";
   $: primary = $store.theme.primary;
@@ -7,6 +8,7 @@
   let breakSelected: string = $store.settings.selectedBreakOption;
   function handleButtonClicked(event: CustomEvent) {
     selected = event.detail.text;
+    $store.settings.selectedTimeOption = event.detail.text
     let value = event.detail.value;
     $store.timer.time = { minutes: value.minutes, seconds: value.seconds };
     $store.timer.runningTimer = { minutes: value.minutes, seconds: value.seconds };
@@ -14,12 +16,17 @@
 
   function handleBreakTimeSelect(event: CustomEvent) {
     breakSelected = event.detail.text;
+    console.log(event.detail.value)
+    let value = event.detail.value
+    $store.settings.selectedBreakOption = event.detail.text
+    $store.timer.break = {minutes: value.minutes, seconds: value.seconds}
   }
 
   $: Times = $store.settings.Times;
   $: BreakTimes = $store.settings.BreakTimes;
 
   let openModal: boolean = false;
+  let openBreakModal: boolean = false;
 </script>
 
 <section style="background-color: {primary};" class="w-full h-[100vh] flex flex-col items-center gap-8 app">
@@ -31,7 +38,7 @@
       {/each}
 
       <button on:click={() => (openModal = true)} class="custom-time rounded-full text-sm font-semibold bg-white p-2 w-full"> Set your own time </button>
-      <Current on:clicked={(e) => openModal = e.detail} {openModal}/>
+      <Current on:clicked={(e) => (openModal = e.detail)} {openModal} />
     </div>
   </div>
 
@@ -47,7 +54,8 @@
           on:clicked={handleBreakTimeSelect}
         />
       {/each}
-      <button class="custom-time rounded-full text-sm font-semibold bg-white p-2 w-full"> Set your own time </button>
+      <button on:click={() => openBreakModal = true} class="custom-time rounded-full text-sm font-semibold bg-white p-2 w-full"> Set your own time </button>
+      <Break on:clicked={(e) => (openBreakModal = e.detail)} {openBreakModal} />
     </div>
   </div>
 </section>
