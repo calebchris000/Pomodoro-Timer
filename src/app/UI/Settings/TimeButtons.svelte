@@ -1,27 +1,34 @@
 <script lang="ts">
   export let text = "10 minutes";
-  export let selected: string = "";
+  export let selected: any = { text: "", value: {} };
   import { createEventDispatcher } from "svelte";
   import { store } from "../../store";
   const dispatch = createEventDispatcher();
-  export let value: number = 10;
+  export let value = { minutes: 0, seconds: 0 };
   export let type = "current";
   $: cto = $store.theme.cto;
 
   function handleDispatch() {
-    dispatch("clicked", text);
+    dispatch("clicked", { text, value });
   }
 
+  $: console.log(selected);
+
   $: {
-    if (text === selected && type === "current") {
-      $store.timer.time.minutes = value;
-      $store.timer.time.seconds = 0;
-      $store.timer.runningTimer.minutes = value
-      $store.settings.selectedMinute = text;
-    } else if (text === selected && type === "break") {
-      $store.timer.break.minutes = value;
-      $store.timer.break.seconds = 0;
-      $store.settings.selectedBreakMinute = text;
+    if (text === selected.text) {
+      if (type === "current") {
+        store.update((defaults) => {
+          defaults.timer.time = { minutes: value.minutes, seconds: value.seconds };
+          defaults.timer.runningTimer = { minutes: value.minutes, seconds: value.seconds };
+          return defaults;
+        });
+      } else if (type === "break") {
+        store.update((defaults) => {
+          defaults.timer.break = { minutes: value.minutes, seconds: value.seconds };
+          defaults.timer.runningTimer = { minutes: value.minutes, seconds: value.seconds };
+          return defaults;
+        });
+      }
     }
   }
 </script>

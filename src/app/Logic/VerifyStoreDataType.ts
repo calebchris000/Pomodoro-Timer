@@ -21,7 +21,7 @@ export type Times = {
 export interface Defaults {
   theme: Theme;
   timer: Timer;
-  settings: { selectedMinute: string; selectedBreakMinute: string; Times: any[]; BreakTimes: any[] };
+  settings: { selectedTimeOption: string; selectedBreakOption: string; Times: any[]; BreakTimes: any[] };
   currentPage: string;
   splashDelay: number;
 }
@@ -49,8 +49,8 @@ export function isDefaults(obj: any): obj is Defaults {
     typeof obj.timer.BreakTimes === "object" &&
     typeof obj.timer.percentage === "number" &&
     typeof obj.settings === "object" &&
-    typeof obj.settings.selectedMinute === "string" &&
-    typeof obj.settings.selectedBreakMinute === "string" &&
+    typeof obj.settings.selectedTimeOption === "string" &&
+    typeof obj.settings.selectedBreakOption === "string" &&
     typeof obj.currentPage === "string" &&
     typeof obj.splashDelay === "number"
   );
