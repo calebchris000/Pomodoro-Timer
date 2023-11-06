@@ -1,84 +1,40 @@
 <script lang="ts">
   import Home from "./Home.svelte";
-
+  import { timerInstance as timer, type timer as timerType } from "../Logic/TimerInstance";
   import Navigation from "./Navigation.svelte";
   import { store } from "../store";
   import Setting from "./Settings/Setting.svelte";
-  import { Timer as TimerLogic } from "../Logic/Timer";
-  import type { TimerInterface } from "../Logic/Timer";
   import Splash from "./Splash.svelte";
-  import { onMount } from "svelte";
+  import { Splash as SplashScreenLogic } from "../Logic/Splash";
+  import { SignalExecution } from "../Logic/SignalExecution";
+  import { GotoBreak } from "../Logic/GotoBreak";
+  $: signal = $store.timer.signal;
   $: primary = $store.theme.primary;
   $: currentPage = $store.currentPage;
-  let timeFromStore = $store.timer.time;
-  let breakTime = $store.timer.break;
+  $: console.log(currentPage)
+  let runningTimer: timerType;
+  $: runningTimer = $store.timer.runningTimer;
 
-  let timerInterface: TimerInterface = { minutes: 0, seconds: 0, fullSeconds: 0 };
-
-  let timer = new TimerLogic((c: any) => {
-    timerInterface = c;
-  });
-
-  $: $store.timer.runningTimer.minutes = timerInterface.minutes;
-  $: $store.timer.runningTimer.seconds = timerInterface.seconds;
-
-  let signal: string;
-  store.subscribe((defaults) => {
-    signal = defaults.timer.signal;
-  });
   $: {
-    switch (signal) {
-      case "ongoing":
-        timer.set(timeFromStore.minutes, timeFromStore.seconds);
-        timer.start();
-        break;
-      case "pause":
-        timer.pause();
-        break;
-      case "break":
-        timer.set(breakTime.minutes, breakTime.seconds);
-        timer.start();
-        break;
-      case "resume":
-        timer.start();
-        break;
-      case "reset":
-        timer.set(timeFromStore.minutes, timeFromStore.seconds);
-        $store.timer.runningTimer = { minutes: timeFromStore.minutes, seconds: timeFromStore.seconds };
-        break;
-    }
+    signal, SignalExecution();
   }
 
-  function startBreakTime() {
-    timer.set(breakTime.minutes, breakTime.seconds);
-    timer.start();
-  }
   $: {
-    if (timerInterface.fullSeconds === 0 && $store.timer.signal === "ongoing") {
-      store.update((defaults) => {
-        defaults.timer.signal = "break";
-        return defaults;
-      });
-      startBreakTime();
-    }
+    signal, runningTimer, GotoBreak();
   }
 
-  timer.set(timeFromStore.minutes, timeFromStore.seconds);
-
-    setTimeout(() => {
-      $store.currentPage = "home";
-    }, 3000);
+  SplashScreenLogic();
 </script>
 
 <section style="background-color: {primary};" class="w-full h-[100vh] fixed overflow-y-scroll flex flex-col gap-8 app">
   <Navigation />
 
   {#if currentPage === "splash"}
-  <Splash />
+    <Splash />
   {:else if currentPage === "home"}
-  <Home />
-  {:else if currentPage === 'settings'}
-  <Setting />
+    <Home />
+  {:else if currentPage === "settings"}
+    <Setting />
   {/if}
 </section>
 

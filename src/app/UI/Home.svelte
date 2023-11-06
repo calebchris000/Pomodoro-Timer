@@ -3,12 +3,10 @@
   import Timer from "./Timer.svelte";
   import TipCard from "./TipCard.svelte";
   import { store } from "../store";
-  $: primary = $store.theme.primary;
   $: timerSignal = $store.timer.signal;
 
   let startButton: string = "Begin!";
-  // let endButton: string = "End this session";
-  function sendBeginSignal() {
+  function sendInitialSignal() {
     let signal = $store.timer.signal;
     switch (signal) {
       case "pause":
@@ -24,22 +22,11 @@
   }
 
   function sendBreakSignal() {
-    let signal = $store.timer.signal;
-
-    if (signal !== "break") {
-      $store.timer.signal = "break";
-
-      return;
-    }
+    $store.timer.signal = "break";
   }
 
   function sendResumeSignal() {
-    let signal = $store.timer.signal;
-
-    if (signal === "pause") {
-      $store.timer.signal = "resume";
-      return;
-    }
+    $store.timer.signal = "resume";
   }
 
   function sendStopSignal() {
@@ -47,6 +34,7 @@
       return;
     }
     $store.timer.signal = "reset";
+    $store.timer.percentage = 100
   }
 
   $: {
@@ -58,13 +46,13 @@
         startButton = "I need a break";
         break;
       case "pause":
-        startButton = "Shall we continue?";
+        startButton = "Shall We Continue?";
         break;
       case "break":
         startButton = "Resume Work";
         break;
       default:
-        startButton = "Start Early";
+        startButton = "Begin Work";
         break;
     }
   }
@@ -75,7 +63,7 @@
   <TipCard />
 
   <section class="mt-5 flex flex-col gap-4">
-    <Button on:click={sendBeginSignal} text={startButton} />
+    <Button on:click={sendInitialSignal} text={startButton} />
     <Button on:click={sendStopSignal} text="End this session" className="bg-[rgba(0,0,0,0)!important] border-2 px-8 py-3 border-black" />
   </section>
 </section>

@@ -2,17 +2,16 @@
   import TimerBody from "./TimerBody.svelte";
   import { store } from "../store";
   import { PercentageFromTime } from "../Logic/PercentageFromTime.js";
+  import { PercentageProgress } from "../Logic/PercentageProgress";
 
-  let timeFromStore = $store.timer.time
-  let breakTime = $store.timer.break
+  let timeFromStore = $store.timer.time;
+  let breakTime = $store.timer.break;
+
   function sendPauseSignal() {
     if ($store.timer.signal === "reset") {
       return;
     }
-    store.update((defaults) => {
-      defaults.timer.signal = "pause";
-      return defaults;
-    });
+    $store.timer.signal = "pause";
   }
   let timerType: string = "Work Time";
 
@@ -20,16 +19,10 @@
   $: primary = $store.theme.primary;
   $: cto = $store.theme.cto;
   $: runningTimer = $store.timer.runningTimer;
+  $: signal = $store.timer.signal;
 
   $: {
-    let timeToSeconds = Math.floor(timeFromStore.minutes * 60) + timeFromStore.seconds;
-    let runningTimerToSeconds = Math.floor(runningTimer.minutes * 60) + runningTimer.seconds
-    if ($store.timer.signal === "ongoing") {
-      percentage = PercentageFromTime(runningTimerToSeconds, timeToSeconds);
-    } else if ($store.timer.signal === "break") {
-      let timeToSeconds = Math.floor(breakTime.minutes * 60) + breakTime.seconds;
-      percentage = PercentageFromTime(runningTimerToSeconds, timeToSeconds);
-    }
+    signal, runningTimer, PercentageProgress();
   }
 </script>
 
