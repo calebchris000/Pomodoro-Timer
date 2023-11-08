@@ -25,8 +25,5 @@
     opacity: 0.8;
     /* z-index: -1; */
 
-    opacity: 0.1;
-    background-image: linear-gradient(0deg, #e5e5f700 50%, #444cf7 50%);
-    background-size: 10px 10px;
   }
 </style>

@@ -11,7 +11,6 @@
   $: signal = $store.timer.signal;
   $: primary = $store.theme.primary;
   $: currentPage = $store.currentPage;
-  $: console.log(currentPage)
   let runningTimer: timerType;
   $: runningTimer = $store.timer.runningTimer;
 
