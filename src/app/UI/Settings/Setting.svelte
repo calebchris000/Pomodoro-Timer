@@ -16,7 +16,6 @@
 
   function handleBreakTimeSelect(event: CustomEvent) {
     breakSelected = event.detail.text;
-    console.log(event.detail.value)
     let value = event.detail.value
     $store.settings.selectedBreakOption = event.detail.text
     $store.timer.break = {minutes: value.minutes, seconds: value.seconds}
