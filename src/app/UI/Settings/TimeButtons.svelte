@@ -35,11 +35,12 @@
   }
 
   function handleRemoveTimer() {
-    console.log(index)
+    console.log(type, index)
     store.update(defaults => {
-      const times = defaults.settings.Times
+      const path = type === "current" ? "Times" : "BreakTimes"
+      const times = defaults.settings[path]
       let filtered = times.filter(time => times.indexOf(time) !== index)
-      defaults.settings.Times = filtered
+      defaults.settings[path] = filtered
       return defaults
     })
   }

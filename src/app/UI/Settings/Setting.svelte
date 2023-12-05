@@ -27,7 +27,18 @@
   let deleteModeBreak: boolean = false;
 
   function handleDeleteTime(event: any) {
-    event.target.id === 'current' ? deleteModeCurrent = !deleteModeCurrent : event.target.id === "break" ? deleteModeBreak = !deleteModeBreak : null
+    if(event.target.id === "current") {
+      deleteModeCurrent = !deleteModeCurrent
+      if(deleteModeCurrent && deleteModeBreak) {
+        deleteModeBreak = false
+      }
+    }
+    else  if(event.target.id === "break"){
+      deleteModeBreak = !deleteModeBreak
+      if(deleteModeCurrent && deleteModeBreak) {
+        deleteModeCurrent = false
+      }
+    }
   }
 
   $: Times = $store.settings.Times;
@@ -82,12 +93,13 @@
       Select how long you would like to rest
     </p>
     <div class="grid gap-4 max-w-[100%]">
-      {#each BreakTimes as breakTime}
+      {#each BreakTimes as breakTime, index}
         <TimeButtons
           type="break"
           value={{ minutes: breakTime.minutes, seconds: breakTime.seconds }}
           selected={breakSelected}
           text={breakTime.text}
+          {index}
           deleteMode={deleteModeBreak}
           on:clicked={handleBreakTimeSelect}
         />
@@ -102,9 +114,12 @@
         <button
           on:click={handleDeleteTime}
           id="break"
-          class="rounded-full text-sm font-semibold bg-white p-2 w-full"
-          >Delete Times</button
-        >
+          style={`${deleteModeBreak && "background: green; color: white"}`}
+          class="rounded-full text-sm font-semibold bg-[#f87171] p-2 w-full"
+
+          >{deleteModeBreak ? "Cancel" : "Delete Times"}</button
+          >
+  
 
         
       </div>
