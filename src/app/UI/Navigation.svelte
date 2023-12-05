@@ -18,7 +18,8 @@
 
 $: showOption = $store.showOption 
 
-
+$: secondary = $store.theme.secondary
+$: cto = $store.theme.cto
 </script>
 
 <nav class="w-full py-3 flex px-3 items-center justify-between relative z-[500]">
@@ -33,9 +34,9 @@ $: showOption = $store.showOption
 
     </button>
     {#if showOption}
-    <div class="absolute right-0 w-fit top-2 flex flex-col bg-white">
-      <p class="hover:bg-gray-300 font-semibold py-2 px-3">One Option</p>
-      <p class="hover:bg-gray-300 font-semibold py-2 px-3">Another Option</p>
+    <div class="absolute right-0 w-fit top-2 z-[100] flex flex-col bg-white">
+      <button on:click={gotoSettings} style={`background: ${cto}; color: white`} type="button" class={`hover:text-white hover:bg-gray-300 text-left font-semibold py-2 px-3 flex items-center gap-2`}><Icon class="text-lg" icon="tdesign:setting"/> Settings</button>
+      <button style={`background: ${cto}; color: white`} type="button" class={`hover:text-white hover:bg-gray-300 text-left font-semibold py-2 px-3 flex items-center gap-2`}><Icon class="text-xl" icon="mdi:account-outline"/> Account</button>
     </div>
     {/if}
   </div>

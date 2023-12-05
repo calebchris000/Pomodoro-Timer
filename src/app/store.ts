@@ -35,7 +35,7 @@ let defaults: Defaults = {
 
   currentPage: "splash",
   splashDelay: 2,
-  showOption: false,
+  showOption: true,
 };
 
 export const store: Writable<Defaults> = writable(defaults);

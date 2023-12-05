@@ -3,11 +3,13 @@
   import { timerInstance as timer, type timer as timerType } from "../Logic/TimerInstance";
   import Navigation from "./Navigation.svelte";
   import { store } from "../store";
-  import Setting from "./Settings/Setting.svelte";
+  import Setting from "./Settings/TimerSetting.svelte";
   import Splash from "./Splash.svelte";
   import { Splash as SplashScreenLogic } from "../Logic/Splash";
   import { SignalExecution } from "../Logic/SignalExecution";
   import { GotoBreak } from "../Logic/GotoBreak";
+  import GeneralSetting from "./Settings/GeneralSetting.svelte";
+  import TimerSetting from "./Settings/TimerSetting.svelte";
   $: signal = $store.timer.signal;
   $: primary = $store.theme.primary;
   $: currentPage = $store.currentPage;
@@ -45,7 +47,11 @@
   {:else if currentPage === "home"}
     <Home />
   {:else if currentPage === "settings"}
-    <Setting />
+    <!-- <Setting /> -->
+    <GeneralSetting />
+    {:else if currentPage === "TimerSettings"}
+    <!-- <Setting /> -->
+    <TimerSetting />
   {/if}
 </section>
 </div>

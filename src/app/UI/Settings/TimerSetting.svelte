@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { store } from "./../../store";
+  import { store } from "../../store";
   import Break from "./CustomTime/Break.svelte";
   import Current from "./CustomTime/Current.svelte";
   import TimeButtons from "./TimeButtons.svelte";
