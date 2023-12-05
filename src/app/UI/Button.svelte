@@ -8,6 +8,6 @@
 
 </script>
 
-<button style="background-color: {cto};" on:click class="w-fit px-16 p-4 block mx-auto rounded-lg font-semibold text-lg {className}">
+<button style="background-color: {cto};" on:click|stopPropagation class="w-fit px-16 p-4 block mx-auto rounded-lg font-semibold text-lg {className}">
   {text}
 </button>

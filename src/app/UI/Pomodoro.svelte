@@ -23,7 +23,19 @@
   }
 
   SplashScreenLogic();
+
+  function handleSectionClick(e: any) {
+
+      store.update(defaults => {
+        defaults.showOption = false
+        return defaults
+      })
+  }
 </script>
+
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="w-[100vw] h-[100vh] fixed z-50" on:click={handleSectionClick}>
 
 <section style="background-color: {primary};" class="w-full h-[100vh] fixed overflow-y-scroll flex flex-col gap-8 app">
   <Navigation />
@@ -36,6 +48,7 @@
     <Setting />
   {/if}
 </section>
+</div>
 
 <svelte:head>
   <title>{currentPage === "home" ? "Home" : "Settings"}</title>

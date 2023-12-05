@@ -24,6 +24,7 @@ export interface Defaults {
   settings: { selectedTimeOption: string; selectedBreakOption: string; Times: any[]; BreakTimes: any[] };
   currentPage: string;
   splashDelay: number;
+  showOption: boolean
 }
 
 export function isDefaults(obj: any): obj is Defaults {
@@ -52,6 +53,7 @@ export function isDefaults(obj: any): obj is Defaults {
     typeof obj.settings.selectedTimeOption === "string" &&
     typeof obj.settings.selectedBreakOption === "string" &&
     typeof obj.currentPage === "string" &&
-    typeof obj.splashDelay === "number"
+    typeof obj.splashDelay === "number" &&
+    typeof obj.showOption === "boolean"
   );
 }
