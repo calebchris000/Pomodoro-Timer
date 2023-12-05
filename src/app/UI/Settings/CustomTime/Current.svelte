@@ -44,7 +44,7 @@
 <Modal on:clicked={handleClicked} {openModal}>
   <section
     style="background-color: {primary};"
-    class="w-[70%] h-[80%] rounded-xl fixed flex flex-col gap-4 p-3 px-6 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
+    class="w-[70%] h-[80%] rounded-xl z-50 fixed flex flex-col gap-4 p-3 px-6 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
   >
     <p class="text-2xl text-center font-semibold">Set Timer</p>
 

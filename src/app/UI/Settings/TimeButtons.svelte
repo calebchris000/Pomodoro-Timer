@@ -2,10 +2,13 @@
   export let text = "10 minutes";
   export let selected: any = { text: "", value: {} };
   import { createEventDispatcher } from "svelte";
+  import Icon from "@iconify/svelte";
   import { store } from "../../store";
   const dispatch = createEventDispatcher();
   export let value = { minutes: 0, seconds: 0 };
+  export let index: number = 0
   export let type = "current";
+  export let deleteMode:boolean = false
   $: cto = $store.theme.cto;
 
   function handleDispatch() {
@@ -30,8 +33,24 @@
       }
     }
   }
+
+  function handleRemoveTimer() {
+    console.log(index)
+    store.update(defaults => {
+      const times = defaults.settings.Times
+      let filtered = times.filter(time => times.indexOf(time) !== index)
+      defaults.settings.Times = filtered
+      return defaults
+    })
+  }
 </script>
 
-<button on:click={handleDispatch} style="background-color: {text === selected ? cto : 'white'}" class="rounded-full text-sm font-semibold bg-white p-2 w-32">
+<button id={`${index}`} on:click={handleDispatch} style="background-color: {text === selected ? cto : 'white'}" class="rounded-full overflow-hidden relative text-sm font-semibold bg-white p-2 w-32">
+ {#if deleteMode}
+
+ <button class="absolute top-0 bottom-0 right-0" on:click|stopPropagation={handleRemoveTimer} >
+   <Icon class="bg-red-500 w-5 h-full text-white" icon="basil:cross-solid"/>
+ </button>
+ {/if}
   {text}
 </button>
