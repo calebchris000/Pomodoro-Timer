@@ -26,6 +26,6 @@
 
   <div class="w-full px-4 flex flex-col gap-5">
     <button on:click={goToTimer} type="button" class="w-full text-left font-medium text-lg flex items-center gap-1"><Icon class="text-xl" icon="ph:clock-bold"/> Timer</button>
-    <button on:click={gotoCustomization} type="button" class="w-full text-left font-medium text-lg flex items-center gap-1"><Icon class="text-xl" icon="mdi:art"/>Customization</button>
+    <button on:click={gotoCustomization} type="button" class="w-full text-left font-medium text-lg flex items-center gap-1"><Icon class="text-xl" icon="mdi:art"/>App Theme</button>
   </div>
 </section>
