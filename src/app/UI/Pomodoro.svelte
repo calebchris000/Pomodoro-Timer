@@ -1,6 +1,9 @@
 <script lang="ts">
   import Home from "./Home.svelte";
-  import { timerInstance as timer, type timer as timerType } from "../Logic/TimerInstance";
+  import {
+    timerInstance as timer,
+    type timer as timerType,
+  } from "../Logic/TimerInstance";
   import Navigation from "./Navigation.svelte";
   import { store } from "../store";
   import Setting from "./Settings/TimerSetting.svelte";
@@ -10,6 +13,7 @@
   import { GotoBreak } from "../Logic/GotoBreak";
   import GeneralSetting from "./Settings/GeneralSetting.svelte";
   import TimerSetting from "./Settings/TimerSetting.svelte";
+  import Customization from "./Settings/CustomizationSettings/Customization.svelte";
   $: signal = $store.timer.signal;
   $: primary = $store.theme.primary;
   $: currentPage = $store.currentPage;
@@ -27,33 +31,34 @@
   SplashScreenLogic();
 
   function handleSectionClick(e: any) {
-
-      store.update(defaults => {
-        defaults.showOption = false
-        return defaults
-      })
+    store.update((defaults) => {
+      defaults.showOption = false;
+      return defaults;
+    });
   }
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="w-[100vw] h-[100vh] fixed z-50" on:click={handleSectionClick}>
+  <section
+    style="background-color: {primary};"
+    class="w-full h-[100vh] fixed overflow-y-scroll flex flex-col gap-8 app"
+  >
+    <Navigation />
 
-<section style="background-color: {primary};" class="w-full h-[100vh] fixed overflow-y-scroll flex flex-col gap-8 app">
-  <Navigation />
-
-  {#if currentPage === "splash"}
-    <Splash />
-  {:else if currentPage === "home"}
-    <Home />
-  {:else if currentPage === "settings"}
-    <!-- <Setting /> -->
-    <GeneralSetting />
+    {#if currentPage === "splash"}
+      <Splash />
+    {:else if currentPage === "home"}
+      <Home />
+    {:else if currentPage === "settings"}
+      <GeneralSetting />
     {:else if currentPage === "TimerSettings"}
-    <!-- <Setting /> -->
-    <TimerSetting />
-  {/if}
-</section>
+      <TimerSetting />
+    {:else if currentPage === "CustomizationSetting"}
+      <Customization />
+    {/if}
+  </section>
 </div>
 
 <svelte:head>
