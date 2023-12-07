@@ -44,18 +44,18 @@
       <Icon class="text-2xl" icon="material-symbols:more-vert" />
     </button>
     {#if showOption}
-      <div class="absolute right-0 w-fit top-2 z-[100] flex flex-col bg-white">
+      <div style="background-color: {secondary};" class="absolute right-0 w-fit top-2 z-[100] flex flex-col bg-white">
         <button
           on:click={gotoSettings}
-          style={`background: ${primary}; color: white`}
+          style="color: {textColor}"
           type="button"
-          class={`hover:text-white hover:bg-gray-300 text-left font-semibold py-2 px-3 flex items-center gap-2`}
+          class={`hover:text-white text-left font-semibold py-2 px-3 flex items-center gap-2`}
           ><Icon class="text-lg" icon="tdesign:setting" /> Settings</button
         >
         <button
-          style={`background: ${primary}; color: white`}
+          style="color: {textColor}"
           type="button"
-          class={`hover:text-white hover:bg-gray-300 text-left font-semibold py-2 px-3 flex items-center gap-2`}
+          class={`hover:text-white text-left font-semibold py-2 px-3 flex items-center gap-2`}
           ><Icon class="text-xl" icon="mdi:account-outline" /> Account</button
         >
       </div>

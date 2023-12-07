@@ -48,7 +48,7 @@ function handleBack() {
   class="fixed w-[100vw] h-[100vh] z-[600]"
 >
   <nav class="w-full py-3 flex px-3 items-center gap-2 relative z-[500]">
-    <button on:click={handleBack} type="button" class="font-medium">
+    <button style="color: {textColor};" on:click={handleBack} type="button" class="font-medium">
       <Icon icon="pepicons-pop:arrow-left" class="text-3xl" />
     </button>
     <p style="color: {textColor}" class="text-xl font-semibold text-black">App Theme</p>

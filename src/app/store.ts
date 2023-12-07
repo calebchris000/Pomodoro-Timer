@@ -9,9 +9,9 @@ let defaults: Defaults = {
       cto: "#2b7bcb",
     },
     dark: {
-      primary: "#1A2C47",
-      secondary: "#1f487e",
-      cto: "#0f3a5c",
+      primary: "#070d14",
+      secondary: "#0d1926",
+      cto: "#b5d8fa",
     },
     active: {
       primary: "#b5d8fa",
@@ -19,7 +19,7 @@ let defaults: Defaults = {
       cto: "#2b7bcb",
     },
     
-    selected: "light",
+    selected: "dark",
     collection: [
       {
         "Midnight Blue": {

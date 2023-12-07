@@ -9,6 +9,7 @@
   export let index: number = 0
   export let type = "current";
   export let deleteMode:boolean = false
+  $: secondary = $store.theme.active.secondary;
   $: cto = $store.theme.active.cto;
 
   function handleDispatch() {
@@ -44,9 +45,11 @@
       return defaults
     })
   }
+  $: textColor = $store.theme.selected === "dark" && text === selected ? "white" : "black";
+  $: bgColor = text === selected ? cto : secondary
 </script>
 
-<button id={`${index}`} on:click={handleDispatch} style="background-color: {text === selected ? cto : 'white'}" class="rounded-full overflow-hidden relative text-sm font-semibold bg-white p-2 w-32">
+<button id={`${index}`} on:click={handleDispatch} style="background-color: {bgColor}; color: {textColor}" class="rounded-full overflow-hidden relative text-sm font-semibold bg-white p-2 w-32">
  {#if deleteMode}
 
  <button class="absolute top-0 bottom-0 right-0" on:click|stopPropagation={handleRemoveTimer} >

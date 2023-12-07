@@ -17,6 +17,7 @@
 
   $: percentage = $store.timer.percentage;
   $: primary = $store.theme.active.primary;
+  $: secondary = $store.theme.active.secondary;
   $: cto = $store.theme.active.cto;
   $: runningTimer = $store.timer.runningTimer;
   $: signal = $store.timer.signal;
@@ -25,6 +26,7 @@
     signal, runningTimer, PercentageProgress();
   }
   $: textColor = $store.theme.selected === "dark" ? "white" : "black";
+  $: btnColor = $store.theme.selected === "dark" ? secondary : primary
 </script>
 
 <TimerBody>
@@ -32,7 +34,7 @@
 
   <button
     on:click={sendPauseSignal}
-    style="background: radial-gradient(closest-side, {primary} 82%, transparent 80% 100%), conic-gradient({cto} {percentage}%, white 0);"
+    style="background: radial-gradient(closest-side, {btnColor} 82%, transparent 80% 100%), conic-gradient({cto} {percentage}%, white 0);"
     class="progress-bar w-[12rem] h-[12rem] rounded-full flex flex-col items-center justify-center"
   >
     <p style="color: {textColor}" class="text-sm font-semibold">Time Left:</p>

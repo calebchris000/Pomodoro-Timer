@@ -43,9 +43,12 @@
 
   $: Times = $store.settings.Times;
   $: BreakTimes = $store.settings.BreakTimes;
-
+  $: secondary = $store.theme.active.secondary
+  $: cto = $store.theme.active.cto
   let openModal: boolean = false;
   let openBreakModal: boolean = false;
+  $: textColor = $store.theme.selected === "dark" ? "white" : "black";
+  $: bgColor = $store.theme.selected === "dark" ? cto : secondary
 
 </script>
 
@@ -72,7 +75,8 @@
 
       <div class=" flex items-center gap-2 w-full col-span-2">
         <button
-          on:click={() => (openModal = true)}
+        style="background: {bgColor}; color: {textColor}"
+        on:click={() => (openModal = true)}
           class="custom-time rounded-full text-sm font-semibold bg-white p-2 w-full"
           >Custom timer</button
         >
@@ -106,6 +110,7 @@
       {/each}
       <div class=" flex items-center gap-2 w-full col-span-2">
         <button
+        style="background: {bgColor}; color: {textColor}"
           on:click={() => (openBreakModal = true)}
           class="custom-time rounded-full text-sm font-semibold bg-white p-2 w-full"
         >
