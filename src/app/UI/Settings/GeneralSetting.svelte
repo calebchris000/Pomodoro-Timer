@@ -24,7 +24,7 @@
 
 <section
   style="background-color: {primary};"
-  class="w-full h-[100vh] flex flex-col gap-8 app z-[999] border-2 border-red-500 fixed"
+  class="w-full h-[100vh] flex flex-col gap-8 app z-[999] fixed"
 >
   <h2
     style="color: {textColor};"

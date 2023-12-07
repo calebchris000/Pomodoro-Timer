@@ -30,6 +30,12 @@ let defaults: Defaults = {
       },
     ],
   },
+
+  sound: {
+    volume: "medium",
+    activeSound: "",
+    collectionPath: []
+  },
   timer: {
     signal: "reset",
     time: { minutes: 25, seconds: 0 },

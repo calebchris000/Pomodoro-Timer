@@ -12,6 +12,12 @@ type Theme = {
   selected: "light" | "dark" | "custom";
 };
 
+type Sound = {
+  volume: "low" | "medium" | "high",
+  activeSound: string,
+  collectionPath: any[]
+}
+
 type Timer = {
   time: { minutes: number; seconds: number };
   runningTimer: { minutes: number; seconds: number };
@@ -29,6 +35,7 @@ export type Times = {
 export interface Defaults {
   theme: Theme;
   timer: Timer;
+  sound: Sound;
   settings: {
     selectedTimeOption: string;
     selectedBreakOption: string;
@@ -55,6 +62,9 @@ export function isDefaults(obj: any): obj is Defaults {
     typeof obj.theme.active.cto === "string" &&
     typeof obj.theme.collection === "object" &&
     typeof obj.theme.selected === "string" &&
+    typeof obj.sound.volume === "string" &&
+    typeof obj.sound.activeSound === "string" &&
+    typeof obj.sound.collectionPath === "object" &&
     typeof obj.timer === "object" &&
     typeof obj.timer.time === "object" &&
     typeof obj.timer.time.minutes === "number" &&
