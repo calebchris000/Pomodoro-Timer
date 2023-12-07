@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { store } from "../../store";
-  import Break from "./CustomTime/Break.svelte";
-  import Current from "./CustomTime/Current.svelte";
+  import { store } from "$src/app/store";
+  import Break from "../CustomTime/Break.svelte";
+  import Current from "../CustomTime/Current.svelte";
   import TimeButtons from "./TimeButtons.svelte";
   $: primary = $store.theme.active.primary;
   let selected: string = $store.settings.selectedTimeOption;

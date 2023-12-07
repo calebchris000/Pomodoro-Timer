@@ -3,7 +3,7 @@
   export let selected: any = { text: "", value: {} };
   import { createEventDispatcher } from "svelte";
   import Icon from "@iconify/svelte";
-  import { store } from "../../store";
+  import { store } from "$src/app/store";
   const dispatch = createEventDispatcher();
   export let value = { minutes: 0, seconds: 0 };
   export let index: number = 0

@@ -15,6 +15,10 @@
   function handleBack() {
     $store.currentPage = "home";
   }
+
+  function gotoSound() {
+    $store.currentPage = "sound";
+  }
   $: textColor = $store.theme.selected === "dark" ? "white" : "black";
 </script>
 
@@ -41,15 +45,26 @@
       on:click={goToTimer}
       type="button"
       style="color: {textColor};"
-      class="w-full text-left font-medium text-lg flex items-center gap-1"
+      class="w-full text-left font-medium text-lg flex items-center gap-2"
       ><Icon class="text-xl" icon="ph:clock-bold" /> Timer</button
     >
     <button
       on:click={gotoCustomization}
       style="color: {textColor};"
       type="button"
-      class="w-full text-left font-medium text-lg flex items-center gap-1"
+      class="w-full text-left font-medium text-lg flex items-center gap-2"
       ><Icon class="text-xl" icon="mdi:art" />App Theme</button
+    >
+
+    <button
+      on:click={gotoSound}
+      style="color: {textColor};"
+      type="button"
+      class="w-full text-left font-medium text-lg flex items-center gap-2"
+      ><Icon
+        class="text-xl"
+        icon="lets-icons:sound-fill"
+      />Sound</button
     >
   </div>
 </section>

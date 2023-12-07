@@ -6,14 +6,14 @@
   } from "../Logic/TimerInstance";
   import Navigation from "./Navigation.svelte";
   import { store } from "../store";
-  import Setting from "./Settings/TimerSetting.svelte";
   import Splash from "./Splash.svelte";
   import { Splash as SplashScreenLogic } from "../Logic/Splash";
   import { SignalExecution } from "../Logic/SignalExecution";
   import { GotoBreak } from "../Logic/GotoBreak";
   import GeneralSetting from "./Settings/GeneralSetting.svelte";
-  import TimerSetting from "./Settings/TimerSetting.svelte";
   import Customization from "./Settings/CustomizationSettings/Customization.svelte";
+  import SoundSettings from "./Settings/SoundSettings/SoundSettings.svelte";
+  import TimerSetting from "./Settings/TimerSettings/TimerSetting.svelte";
   $: signal = $store.timer.signal;
   $: primary = $store.theme.active.primary;
   $: currentPage = $store.currentPage;
@@ -57,6 +57,8 @@
       <TimerSetting />
     {:else if currentPage === "CustomizationSetting"}
       <Customization />
+      {:else if currentPage === "sound"}
+      <SoundSettings />
     {/if}
   </section>
 </div>
