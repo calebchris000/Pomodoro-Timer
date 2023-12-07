@@ -11,6 +11,7 @@
   export let deleteMode:boolean = false
   $: secondary = $store.theme.active.secondary;
   $: cto = $store.theme.active.cto;
+  
 
   function handleDispatch() {
     dispatch("clicked", { text, value });
@@ -46,7 +47,7 @@
     })
   }
   $: textColor = $store.theme.selected === "dark" && text === selected ? "white" : "black";
-  $: bgColor = text === selected ? cto : secondary
+  $: bgColor = text === selected ? secondary : cto
 </script>
 
 <button id={`${index}`} on:click={handleDispatch} style="background-color: {bgColor}; color: {textColor}" class="rounded-full overflow-hidden relative text-sm font-semibold bg-white p-2 w-32">

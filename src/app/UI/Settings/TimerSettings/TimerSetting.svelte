@@ -48,7 +48,7 @@
   let openModal: boolean = false;
   let openBreakModal: boolean = false;
   $: textColor = $store.theme.selected === "dark" ? "white" : "black";
-  $: bgColor = $store.theme.selected === "dark" ? cto : secondary
+  $: bgColor = $store.theme.selected === "dark" ? secondary : cto
 
 </script>
 
@@ -57,7 +57,7 @@
   class="w-full h-[100vh] flex flex-col items-center gap-8 app"
 >
   <div class="flex flex-col items-center gap-8">
-    <p class="font-semibold mt-20 text-center">
+    <p style="color: {textColor};" class="font-semibold mt-20 text-center">
       Select how long you would like to work for
     </p>
     <div class="grid gap-4 max-w-[100%]">
@@ -93,7 +93,8 @@
   </div>
 
   <div class="flex flex-col items-center gap-8">
-    <p class="font-semibold mt-10 text-center">
+    <p style="color: {textColor};" class="font-semibold mt-20 text-center">
+    
       Select how long you would like to rest
     </p>
     <div class="grid gap-4 max-w-[100%]">
