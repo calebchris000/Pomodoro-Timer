@@ -4,7 +4,7 @@
   const dispatch = createEventDispatcher()
   export let number: number | string= 0;
   export let className: string = ""
-  $: secondary = $store.theme.secondary;
+  $: secondary = $store.theme.active.secondary;
 
   function handleClick() {
     dispatch('clicked', number)

@@ -3,7 +3,7 @@
   import Break from "./CustomTime/Break.svelte";
   import Current from "./CustomTime/Current.svelte";
   import TimeButtons from "./TimeButtons.svelte";
-  $: primary = $store.theme.primary;
+  $: primary = $store.theme.active.primary;
   let selected: string = $store.settings.selectedTimeOption;
   let breakSelected: string = $store.settings.selectedBreakOption;
   function handleButtonClicked(event: CustomEvent) {

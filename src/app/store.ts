@@ -1,12 +1,34 @@
-import { onMount } from "svelte";
 import { writable, type Writable } from "svelte/store";
 import { isDefaults, type Defaults } from "./Logic/VerifyStoreDataType";
 
 let defaults: Defaults = {
   theme: {
-    primary: "#b5d8fa",
-    secondary: "#7ab4ed",
-    cto: "#2b7bcb",
+    light: {
+      primary: "#b5d8fa",
+      secondary: "#7ab4ed",
+      cto: "#2b7bcb",
+    },
+    dark: {
+      primary: "#1A2C47",
+      secondary: "#1f487e",
+      cto: "#0f3a5c",
+    },
+    active: {
+      primary: "#b5d8fa",
+      secondary: "#7ab4ed",
+      cto: "#2b7bcb",
+    },
+    
+    selected: "light",
+    collection: [
+      {
+        "Midnight Blue": {
+          primary: "829cbc",
+          secondary: "#376996",
+          cto: "#1d3461",
+        },
+      },
+    ],
   },
   timer: {
     signal: "reset",
@@ -26,10 +48,10 @@ let defaults: Defaults = {
       { minutes: 40, seconds: 0, text: "40 minutes" },
     ],
     BreakTimes: [
-      { minutes: 10, seconds: 0, text: "5 minutes",},
-      { minutes: 15, seconds: 0, text: "10 minutes", },
-      { minutes: 25, seconds: 0, text: "15 minutes", },
-      { minutes: 40, seconds: 0, text: "20 minutes", },
+      { minutes: 10, seconds: 0, text: "5 minutes" },
+      { minutes: 15, seconds: 0, text: "10 minutes" },
+      { minutes: 25, seconds: 0, text: "15 minutes" },
+      { minutes: 40, seconds: 0, text: "20 minutes" },
     ],
   },
 

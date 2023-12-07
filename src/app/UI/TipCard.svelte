@@ -4,8 +4,8 @@
   let title = "This is your work time";
   let description = "Let's focus on getting things done.";
   import TimerBody from "./TimerBody.svelte";
-  $: primary = $store.theme.primary;
-  $: secondary = $store.theme.secondary;
+  $: primary = $store.theme.active.primary;
+  $: secondary = $store.theme.active.secondary;
   $: timerSignal = $store.timer.signal;
 
   $: {
@@ -32,9 +32,10 @@
         break;
     }
   }
+  $: textColor = $store.theme.selected === "dark" ? "white" : "black";
 </script>
 
-<section style="background-color: {secondary};" class="tip-card-body rounded-xl py-4 flex gap-4 px-5 items-center">
+<section style="background-color: {secondary}; color: {textColor  }" class="tip-card-body rounded-xl py-4 flex gap-4 px-5 items-center">
   <div style="background-color: {primary};" class="w-14 h-14 flex items-center justify-center rounded-lg">
     <Icon icon="tabler:briefcase" class="w-10 h-10" />
   </div>
@@ -47,6 +48,6 @@
 
 <style>
   .tip-card-body {
-    box-shadow: 0 8px 5px #5e5e5e52;
+    /* box-shadow: 0 8px 5px #5e5e5e52; */
   }
 </style>

@@ -15,7 +15,7 @@
   import TimerSetting from "./Settings/TimerSetting.svelte";
   import Customization from "./Settings/CustomizationSettings/Customization.svelte";
   $: signal = $store.timer.signal;
-  $: primary = $store.theme.primary;
+  $: primary = $store.theme.active.primary;
   $: currentPage = $store.currentPage;
   let runningTimer: timerType;
   $: runningTimer = $store.timer.runningTimer;

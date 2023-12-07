@@ -9,7 +9,7 @@
   export let index: number = 0
   export let type = "current";
   export let deleteMode:boolean = false
-  $: cto = $store.theme.cto;
+  $: cto = $store.theme.active.cto;
 
   function handleDispatch() {
     dispatch("clicked", { text, value });

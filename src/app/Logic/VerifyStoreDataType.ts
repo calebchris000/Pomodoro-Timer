@@ -1,7 +1,15 @@
-type Theme = {
+type Mode = {
   primary: string;
   secondary: string;
   cto: string;
+};
+
+type Theme = {
+  light: Mode;
+  dark: Mode;
+  active: Mode;
+  collection: any[];
+  selected: "light" | "dark" | "custom";
 };
 
 type Timer = {
@@ -21,19 +29,32 @@ export type Times = {
 export interface Defaults {
   theme: Theme;
   timer: Timer;
-  settings: { selectedTimeOption: string; selectedBreakOption: string; Times: any[]; BreakTimes: any[] };
+  settings: {
+    selectedTimeOption: string;
+    selectedBreakOption: string;
+    Times: any[];
+    BreakTimes: any[];
+  };
   currentPage: string;
   splashDelay: number;
-  showOption: boolean
+  showOption: boolean;
 }
 
 export function isDefaults(obj: any): obj is Defaults {
   return (
     obj &&
     typeof obj.theme === "object" &&
-    typeof obj.theme.primary === "string" &&
-    typeof obj.theme.secondary === "string" &&
-    typeof obj.theme.cto === "string" &&
+    typeof obj.theme.light.primary === "string" &&
+    typeof obj.theme.light.secondary === "string" &&
+    typeof obj.theme.light.cto === "string" &&
+    typeof obj.theme.dark.primary === "string" &&
+    typeof obj.theme.dark.secondary === "string" &&
+    typeof obj.theme.dark.cto === "string" &&
+    typeof obj.theme.active.primary === "string" &&
+    typeof obj.theme.active.secondary === "string" &&
+    typeof obj.theme.active.cto === "string" &&
+    typeof obj.theme.collection === "object" &&
+    typeof obj.theme.selected === "string" &&
     typeof obj.timer === "object" &&
     typeof obj.timer.time === "object" &&
     typeof obj.timer.time.minutes === "number" &&

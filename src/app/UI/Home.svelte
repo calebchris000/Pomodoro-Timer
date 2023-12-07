@@ -56,6 +56,9 @@
         break;
     }
   }
+  $: textColor = $store.theme.selected === "dark" ? "white" : "black";
+  $: cto = $store.theme.active.cto;
+
 </script>
 
 <section class="mx-6 flex flex-col gap-5">
@@ -64,6 +67,10 @@
 
   <section class="mt-5 flex flex-col gap-4">
     <Button on:click={sendInitialSignal} text={startButton} />
-    <Button on:click={sendStopSignal} text="End this session" className="bg-[rgba(0,0,0,0)!important] border-2 px-8 py-3 border-black" />
+    <Button on:click={sendStopSignal} text="End this session" style='border-color: {textColor}' className="bg-[rgba(0,0,0,0)!important] border-2 px-8 py-3 border-black" />
   </section>
 </section>
+
+<svelte:head>
+  <title>Pomodoro Timer</title>
+</svelte:head>

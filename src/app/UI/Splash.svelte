@@ -2,12 +2,12 @@
   import { store } from "../store";
   import background from "$lib/images/splash_background.jpg";
   import Icon from "@iconify/svelte";
-  $: primary = $store.theme.primary;
-  $: secondary = $store.theme.secondary;
-  $: cto = $store.theme.cto;
+  $: primary = $store.theme.active.primary;
+  $: secondary = $store.theme.active.secondary;
+  $: cto = $store.theme.active.cto;
 </script>
 
-<section style="background-color: {secondary}; " class="fixed w-[100vw] h-[100vh] z-50">
+<section style="background-color: {primary}; " class="fixed w-[100vw] h-[100vh] z-50">
   <div class="flex flex-col items-center justify-center relative top-60">
     <p style="color: black" class="text-4xl font-semibold relative}">Pomodoro <span class="font-bold">PRO</span></p>
     <Icon style='color: black' class="text-7xl" icon="icon-park-outline:tomato" />
