@@ -1,5 +1,6 @@
 <script lang="ts">
   import { store } from "$src/app/store";
+  import Icon from "@iconify/svelte";
   import Break from "../CustomTime/Break.svelte";
   import Current from "../CustomTime/Current.svelte";
   import TimeButtons from "./TimeButtons.svelte";
@@ -41,6 +42,10 @@
     }
   }
 
+  function handleBack() {
+    $store.currentPage = "settings";
+  }
+
   $: Times = $store.settings.Times;
   $: BreakTimes = $store.settings.BreakTimes;
   $: secondary = $store.theme.active.secondary
@@ -54,8 +59,21 @@
 
 <section
   style="background-color: {primary};"
-  class="w-full h-[100vh] flex flex-col items-center gap-8 app"
+  class="fixed w-[100vw] h-[100vh] z-[600] px-3 flex flex-col items-center gap-8 app"
 >
+<nav class="w-full py-3 flex items-center gap-2 relative z-[500]">
+  <button
+    style="color: {textColor};"
+    on:click={handleBack}
+    type="button"
+    class="font-medium"
+  >
+    <Icon icon="pepicons-pop:arrow-left" class="text-3xl" />
+  </button>
+  <p style="color: {textColor}" class="text-xl font-semibold text-black">
+    Sound
+  </p>
+</nav>
   <div class="flex flex-col items-center gap-8">
     <p style="color: {textColor};" class="font-semibold mt-20 text-center">
       Select how long you would like to work for

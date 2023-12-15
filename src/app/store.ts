@@ -87,6 +87,6 @@ store.subscribe((defaults) => {
   localStorage.setItem("data", JSON.stringify(defaults));
 });
 
-store.subscribe((defaults) => {
-  console.log(defaults.sound.volume);
-});
+// store.subscribe((defaults) => {
+//   console.log(defaults.sound.volume);
+// });

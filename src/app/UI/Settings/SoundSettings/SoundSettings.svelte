@@ -1,6 +1,7 @@
 <script lang="ts">
   import { store } from "$src/app/store";
   import Icon from "@iconify/svelte";
+  import RangeSlider from "svelte-range-slider-pips";
   import SelectSound from "./SelectSound.svelte";
 
   $: textColor = $store.theme.selected === "dark" ? "white" : "black";
@@ -9,6 +10,7 @@
   $: secondary = $store.theme.active.secondary;
   $: cto = $store.theme.active.cto;
   $: checked = $store.sound.quickVolume;
+  $: theme = $store.theme.selected;
 
   function handleBack() {
     $store.currentPage = "settings";
@@ -43,7 +45,7 @@
   }
 
   function handleToggleQuickVolume(e: any) {
-    $store.sound.quickVolume = e.target.checked
+    $store.sound.quickVolume = e.target.checked;
   }
 </script>
 
@@ -66,9 +68,7 @@
   </nav>
 
   <div class="mt-5">
-    <p style="color: {textColor};" class="font-semibold mt-5 text-center">
-      Volume
-    </p>
+    <p style="color: {textColor};" class="font-semibold mt-5 text-lg">Volume</p>
 
     <div
       style="color: {textColor}"
@@ -81,16 +81,16 @@
             ? `background-color: ${cto}!important; color: black!important;`
             : `background-color: ${'rgba(0,0,0,0)'}; color: white`}; background-color: {secondary}; border: 1px solid {borderColor}; color: {textColor}"
           on:click={handleQuickVolume}
-          class="w-full rounded-xl font-semibold h-10"
+          class="w-full rounded-xl font-semibold h-20"
           type="button">Low</button
         >
         <button
           id="medium"
           style="{selectedVolume === 'medium'
-            ? `background-color: ${cto}!important; color: black!important;`
-            : `background-color: ${'rgba(0,0,0,0)'}; color: white`}; background-color: {secondary}; border: 1px solid {borderColor}; color: {textColor}"
+            ? `background-color: ${cto}!important; border: 1px solid ${cto}; color: black!important;`
+            : `background-color: rgba(0,0,0,0)}; color: white`}; background-color: {secondary}; border: 1px solid {borderColor}; color: {textColor}"
           on:click={handleQuickVolume}
-          class="font-semibold w-full rounded-xl h-10"
+          class="font-semibold w-full rounded-xl h-20"
           type="button">Medium</button
         >
         <button
@@ -99,28 +99,48 @@
             ? `background-color: ${cto}!important; color: black!important;`
             : `background-color: ${'rgba(0,0,0,0)'}; color: white`}; background-color: {secondary}; border: 1px solid {borderColor}; color: {textColor}"
           on:click={handleQuickVolume}
-          class="font-semibold w-full rounded-xl h-10"
+          class="font-semibold w-full rounded-xl h-20"
           type="button">High</button
         >
       {:else}
-        <p class="font-medium">Sound Volume</p>
-        <input on:input={handleRangeVolume} type="range" name="" id="" />
+        <div
+          style={theme === "dark"
+            ? `background: ${secondary}; color: white`
+            : `background: ${secondary}; color: black`}
+          class="flex items-center justify-between w-full px-5 rounded-lg h-20"
+        >
+          <p class="font-semibold">Sound Volume</p>
+
+          <input
+            style="color: red; background-color: red"
+            on:input={handleRangeVolume}
+            type="range"
+            name=""
+            id=""
+          />
+        </div>
       {/if}
 
-      <div class="absolute top-14 flex items-center gap-2">
-        <label class="font-medium" for="">Quick Volume</label>
-        <input on:change={handleToggleQuickVolume} class=" scale-125" type="checkbox" bind:checked />
+      <div class="absolute top-24 flex items-center gap-2">
+        <label class="font-semibold" for="">Quick Volume</label>
+        <input
+          on:change={handleToggleQuickVolume}
+          class=" scale-125"
+          type="checkbox"
+          bind:checked
+        />
       </div>
     </div>
 
-    <div class="mt-32">
-      <p style="color: {textColor};" class="font-semibold text-center">
+    <div class="mt-24">
+      <p style="color: {textColor};" class="font-semibold text-lg">
         Ambient Sound
       </p>
 
       <div class="flex flex-col gap-2 my-5">
         {#each SoundCollection as sound, index}
           <button
+            style="color: {textColor}"
             on:click={() => handleSoundSelect(sound.path)}
             class="font-medium rounded-xl w-full text-left flex items-center gap-5"
             type="button"
@@ -128,7 +148,7 @@
           >
             <p>{sound.title}</p>
             {#if $store.sound.activeSound === sound.path}
-              <Icon icon="gg:check-o" class="scale-105 text-green-700" />
+              <Icon icon="gg:check-o" style="color: {cto}" class="scale-105" />
             {/if}
           </button>
         {/each}
