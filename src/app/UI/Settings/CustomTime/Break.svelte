@@ -11,9 +11,9 @@
     dispatch("clicked", openBreakModal);
   }
 
-  $: primary = $store.theme.primary;
-  $: secondary = $store.theme.secondary;
-  $: cto = $store.theme.cto;
+  $: primary = $store.theme.active.primary;
+  $: secondary = $store.theme.active.secondary;
+  $: cto = $store.theme.active.cto;
   let timer = "0000";
   $: minutes = Number(timer.slice(0, 2));
   $: seconds = Number(timer.slice(2));

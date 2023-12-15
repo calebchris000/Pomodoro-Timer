@@ -1,12 +1,47 @@
-import { onMount } from "svelte";
 import { writable, type Writable } from "svelte/store";
 import { isDefaults, type Defaults } from "./Logic/VerifyStoreDataType";
-
+import defaultSound from "$lib/sounds/default.mp3";
 let defaults: Defaults = {
   theme: {
-    primary: "#b5d8fa",
-    secondary: "#7ab4ed",
-    cto: "#2b7bcb",
+    light: {
+      primary: "#b5d8fa",
+      secondary: "#7ab4ed",
+      cto: "#2b7bcb",
+    },
+    dark: {
+      primary: "#070d14",
+      secondary: "#0d1926",
+      cto: "#b5d8fa",
+    },
+    active: {
+      primary: "#b5d8fa",
+      secondary: "#7ab4ed",
+      cto: "#2b7bcb",
+    },
+
+    selected: "dark",
+    collection: [
+      {
+        "Midnight Blue": {
+          primary: "829cbc",
+          secondary: "#376996",
+          cto: "#1d3461",
+        },
+      },
+    ],
+  },
+
+  sound: {
+    volume: 0.5,
+    activeSound: defaultSound,
+    quickVolume: true,
+    status: "inactive",
+    muted: false,
+    collectionPath: [
+      { title: "Default", path: "/src/lib/sounds/default.mp3" },
+      { title: "Evening Stars", path: "/src/lib/sounds/evening_stars.mp3" },
+      { title: "Winter Stars", path: "/src/lib/sounds/winter_star.mp3" },
+    ],
   },
   timer: {
     signal: "reset",
@@ -26,15 +61,16 @@ let defaults: Defaults = {
       { minutes: 40, seconds: 0, text: "40 minutes" },
     ],
     BreakTimes: [
-      { minutes: 10, seconds: 0, text: "5 minutes",},
-      { minutes: 15, seconds: 0, text: "10 minutes", },
-      { minutes: 25, seconds: 0, text: "15 minutes", },
-      { minutes: 40, seconds: 0, text: "20 minutes", },
+      { minutes: 10, seconds: 0, text: "5 minutes" },
+      { minutes: 15, seconds: 0, text: "10 minutes" },
+      { minutes: 25, seconds: 0, text: "15 minutes" },
+      { minutes: 40, seconds: 0, text: "20 minutes" },
     ],
   },
 
   currentPage: "splash",
   splashDelay: 2,
+  showOption: true,
 };
 
 export const store: Writable<Defaults> = writable(defaults);
@@ -50,3 +86,7 @@ if (data && data.length > 0) {
 store.subscribe((defaults) => {
   localStorage.setItem("data", JSON.stringify(defaults));
 });
+
+// store.subscribe((defaults) => {
+//   console.log(defaults.sound.volume);
+// });

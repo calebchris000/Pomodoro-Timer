@@ -1,15 +1,21 @@
 <script lang="ts">
   import Home from "./Home.svelte";
-  import { timerInstance as timer, type timer as timerType } from "../Logic/TimerInstance";
+  import {
+    timerInstance as timer,
+    type timer as timerType,
+  } from "../Logic/TimerInstance";
   import Navigation from "./Navigation.svelte";
   import { store } from "../store";
-  import Setting from "./Settings/Setting.svelte";
   import Splash from "./Splash.svelte";
   import { Splash as SplashScreenLogic } from "../Logic/Splash";
   import { SignalExecution } from "../Logic/SignalExecution";
   import { GotoBreak } from "../Logic/GotoBreak";
+  import GeneralSetting from "./Settings/GeneralSetting.svelte";
+  import Customization from "./Settings/CustomizationSettings/Customization.svelte";
+  import SoundSettings from "./Settings/SoundSettings/SoundSettings.svelte";
+  import TimerSetting from "./Settings/TimerSettings/TimerSetting.svelte";
   $: signal = $store.timer.signal;
-  $: primary = $store.theme.primary;
+  $: primary = $store.theme.active.primary;
   $: currentPage = $store.currentPage;
   let runningTimer: timerType;
   $: runningTimer = $store.timer.runningTimer;
@@ -23,19 +29,39 @@
   }
 
   SplashScreenLogic();
+
+  function handleSectionClick(e: any) {
+    store.update((defaults) => {
+      defaults.showOption = false;
+      return defaults;
+    });
+  }
 </script>
 
-<section style="background-color: {primary};" class="w-full h-[100vh] fixed overflow-y-scroll flex flex-col gap-8 app">
-  <Navigation />
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="w-[100vw] h-[100vh] fixed z-50" on:click={handleSectionClick}>
+  <section
+    style="background-color: {primary};"
+    class="w-full h-[100vh] fixed overflow-y-scroll flex flex-col gap-8 app"
+  >
+    <Navigation />
 
-  {#if currentPage === "splash"}
-    <Splash />
-  {:else if currentPage === "home"}
-    <Home />
-  {:else if currentPage === "settings"}
-    <Setting />
-  {/if}
-</section>
+    {#if currentPage === "splash"}
+      <Splash />
+    {:else if currentPage === "home"}
+      <Home />
+    {:else if currentPage === "settings"}
+      <GeneralSetting />
+    {:else if currentPage === "TimerSettings"}
+      <TimerSetting />
+    {:else if currentPage === "CustomizationSetting"}
+      <Customization />
+    {:else if currentPage === "sound"}
+      <SoundSettings />
+    {/if}
+  </section>
+</div>
 
 <svelte:head>
   <title>{currentPage === "home" ? "Home" : "Settings"}</title>

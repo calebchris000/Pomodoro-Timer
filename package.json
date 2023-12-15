@@ -13,6 +13,7 @@
     "@iconify/svelte": "^3.1.4",
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
     "@tsconfig/svelte": "^5.0.0",
+    "@types/svelte-range-slider-pips": "^2.0.4",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
     "svelte": "^4.0.5",
@@ -23,6 +24,7 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
+    "svelte-range-slider-pips": "^2.2.3",
     "vite-tsconfig-paths": "^4.2.1"
   }
 }
