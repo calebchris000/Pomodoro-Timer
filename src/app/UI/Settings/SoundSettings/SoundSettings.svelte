@@ -1,24 +1,46 @@
 <script lang="ts">
   import { store } from "$src/app/store";
   import Icon from "@iconify/svelte";
+  import SelectSound from "./SelectSound.svelte";
 
   $: textColor = $store.theme.selected === "dark" ? "white" : "black";
+  $: borderColor = $store.theme.selected === "dark" ? "white" : "none";
   $: primary = $store.theme.active.primary;
+  $: secondary = $store.theme.active.secondary;
+  $: cto = $store.theme.active.cto;
+  $: checked = true;
 
   function handleBack() {
     $store.currentPage = "settings";
   }
 
-  $: secondary = $store.theme.active.secondary;
-  $: cto = $store.theme.active.cto;
   $: selectedVolume = "medium";
-  function handleVolume(e: any) {
+  function handleQuickVolume(e: any) {
     selectedVolume = e.target.id;
 
-    $store.sound.volume = selectedVolume as "low" | "medium" | "high";
+    switch (selectedVolume) {
+      case "low":
+        $store.sound.volume = 0.1;
+        break;
+      case "medium":
+        $store.sound.volume = 0.5;
+        break;
+      case "high":
+        $store.sound.volume = 1;
+        break;
+    }
   }
-  $: console.log($store.sound.status)
 
+  function handleRangeVolume(e: any) {
+    const converted = Number(e.target.value) / 100;
+    $store.sound.volume = converted;
+  }
+
+  $: SoundCollection = $store.sound.collectionPath;
+
+  function handleSoundSelect(path: string) {
+    $store.sound.activeSound = path;
+  }
 </script>
 
 <section
@@ -46,41 +68,67 @@
 
     <div
       style="color: {textColor}"
-      class="flex items-center justify-between mt-5 gap-3"
+      class="flex items-center justify-between mt-5 gap-3 relative"
     >
-      <button
-        id="low"
-        style={selectedVolume === "low"
-          ? `background-color: ${cto}; color: black; border-color: ${cto}`
-          : `background-color: ${"rgba(0,0,0,0)"}; color: white`}
-        on:click={handleVolume}
-        class="border border-white w-full rounded-xl font-semibold h-10"
-        type="button">Low</button
-      >
-      <button
-        id="medium"
-        style={selectedVolume === "medium"
-          ? `background-color: ${cto}; color: black; border-color: ${cto}`
-          : `background-color: ${"rgba(0,0,0,0)"}; color: white`}
-        on:click={handleVolume}
-        class="border border-white font-semibold w-full rounded-xl h-10"
-        type="button">Medium</button
-      >
-      <button
-        id="high"
-        style={selectedVolume === "high"
-          ? `background-color: ${cto}; color: black; border-color: ${cto}`
-          : `background-color: ${"rgba(0,0,0,0)"}; color: white`}
-        on:click={handleVolume}
-        class="border border-white font-semibold w-full rounded-xl h-10"
-        type="button">High</button
-      >
+      {#if checked}
+        <button
+          id="low"
+          style="{selectedVolume === 'low'
+            ? `background-color: ${cto}!important; color: black!important;`
+            : `background-color: ${'rgba(0,0,0,0)'}; color: white`}; background-color: {secondary}; border: 1px solid {borderColor}; color: {textColor}"
+          on:click={handleQuickVolume}
+          class="w-full rounded-xl font-semibold h-10"
+          type="button">Low</button
+        >
+        <button
+          id="medium"
+          style="{selectedVolume === 'medium'
+            ? `background-color: ${cto}!important; color: black!important;`
+            : `background-color: ${'rgba(0,0,0,0)'}; color: white`}; background-color: {secondary}; border: 1px solid {borderColor}; color: {textColor}"
+          on:click={handleQuickVolume}
+          class="font-semibold w-full rounded-xl h-10"
+          type="button">Medium</button
+        >
+        <button
+          id="high"
+          style="{selectedVolume === 'high'
+            ? `background-color: ${cto}!important; color: black!important;`
+            : `background-color: ${'rgba(0,0,0,0)'}; color: white`}; background-color: {secondary}; border: 1px solid {borderColor}; color: {textColor}"
+          on:click={handleQuickVolume}
+          class="font-semibold w-full rounded-xl h-10"
+          type="button">High</button
+        >
+      {:else}
+        <p class="font-medium">Sound Volume</p>
+        <input on:input={handleRangeVolume} type="range" name="" id="" />
+      {/if}
+
+      <div class="absolute top-14 flex items-center gap-2">
+        <label class="font-medium" for="">Quick Volume</label>
+        <input class=" scale-125" type="checkbox" bind:checked />
+      </div>
     </div>
 
     <div>
-      <p style="color: {textColor};" class="font-semibold mt-10 text-center">
+      <p style="color: {textColor};" class="font-semibold mt-20 text-center">
         Ambient Sound
       </p>
+
+      <div class="flex flex-col gap-2 my-5">
+        {#each SoundCollection as sound, index}
+          <button
+            on:click={() => handleSoundSelect(sound.path)}
+            class="font-medium rounded-xl w-full text-left flex items-center gap-5"
+            type="button"
+            id={String(index)}
+          >
+            <p>{sound.title}</p>
+            {#if $store.sound.activeSound === sound.path}
+              <Icon icon="gg:check-o" class="scale-105 text-green-700" />
+            {/if}
+          </button>
+        {/each}
+      </div>
     </div>
   </div>
 </section>

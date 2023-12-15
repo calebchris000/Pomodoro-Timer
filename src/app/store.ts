@@ -1,6 +1,6 @@
 import { writable, type Writable } from "svelte/store";
 import { isDefaults, type Defaults } from "./Logic/VerifyStoreDataType";
-import defaultSound from '$lib/sounds/default.mp3'
+import defaultSound from "$lib/sounds/default.mp3";
 let defaults: Defaults = {
   theme: {
     light: {
@@ -18,7 +18,7 @@ let defaults: Defaults = {
       secondary: "#7ab4ed",
       cto: "#2b7bcb",
     },
-    
+
     selected: "dark",
     collection: [
       {
@@ -32,11 +32,15 @@ let defaults: Defaults = {
   },
 
   sound: {
-    volume: 1,
+    volume: 0.5,
     activeSound: defaultSound,
     status: "inactive",
     muted: false,
-    collectionPath: [{title: "Default", path: ""}]
+    collectionPath: [
+      { title: "Default", path: "/src/lib/sounds/default.mp3" },
+      { title: "Evening Stars", path: "/src/lib/sounds/evening_stars.mp3" },
+      { title: "Winter Stars", path: "/src/lib/sounds/winter_star.mp3" },
+    ],
   },
   timer: {
     signal: "reset",
@@ -80,4 +84,8 @@ if (data && data.length > 0) {
 }
 store.subscribe((defaults) => {
   localStorage.setItem("data", JSON.stringify(defaults));
+});
+
+store.subscribe((defaults) => {
+  console.log(defaults.sound.volume);
 });
