@@ -34,6 +34,7 @@
 
   function sendResumeSignal() {
     $store.timer.signal = "resume";
+    $store.sound.status = paused ? "playing" : soundStatus;
   }
 
   function sendStopSignal() {

@@ -1,6 +1,9 @@
 import { writable, type Writable } from "svelte/store";
 import { isDefaults, type Defaults } from "./Logic/VerifyStoreDataType";
 import defaultSound from "$lib/sounds/default.mp3";
+import EveningStars from "$lib/sounds/evening_stars.mp3";
+import WinterStars from "$lib/sounds/winter_star.mp3";
+
 let defaults: Defaults = {
   theme: {
     light: {
