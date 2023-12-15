@@ -34,6 +34,7 @@ let defaults: Defaults = {
   sound: {
     volume: 0.5,
     activeSound: defaultSound,
+    quickVolume: true,
     status: "inactive",
     muted: false,
     collectionPath: [

@@ -57,7 +57,7 @@
       <TimerSetting />
     {:else if currentPage === "CustomizationSetting"}
       <Customization />
-      {:else if currentPage === "sound"}
+    {:else if currentPage === "sound"}
       <SoundSettings />
     {/if}
   </section>

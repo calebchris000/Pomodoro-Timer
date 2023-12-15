@@ -19,6 +19,7 @@ type CollectionPath = {
 
 type Sound = {
   volume: number;
+  quickVolume: boolean;
   status: "inactive" | "playing" | "paused";
   activeSound: string;
   muted: boolean;
@@ -70,6 +71,7 @@ export function isDefaults(obj: any): obj is Defaults {
     typeof obj.theme.collection === "object" &&
     typeof obj.theme.selected === "string" &&
     typeof obj.sound.volume === "number" &&
+    typeof obj.sound.quickVolume === "boolean" &&
     typeof obj.sound.muted === "boolean" &&
     typeof obj.sound.status === "string" &&
     typeof obj.sound.activeSound === "string" &&

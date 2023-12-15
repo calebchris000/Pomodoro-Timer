@@ -8,7 +8,7 @@
   $: primary = $store.theme.active.primary;
   $: secondary = $store.theme.active.secondary;
   $: cto = $store.theme.active.cto;
-  $: checked = true;
+  $: checked = $store.sound.quickVolume;
 
   function handleBack() {
     $store.currentPage = "settings";
@@ -41,6 +41,10 @@
   function handleSoundSelect(path: string) {
     $store.sound.activeSound = path;
   }
+
+  function handleToggleQuickVolume(e: any) {
+    $store.sound.quickVolume = e.target.checked
+  }
 </script>
 
 <section
@@ -61,7 +65,7 @@
     </p>
   </nav>
 
-  <div>
+  <div class="mt-5">
     <p style="color: {textColor};" class="font-semibold mt-5 text-center">
       Volume
     </p>
@@ -105,12 +109,12 @@
 
       <div class="absolute top-14 flex items-center gap-2">
         <label class="font-medium" for="">Quick Volume</label>
-        <input class=" scale-125" type="checkbox" bind:checked />
+        <input on:change={handleToggleQuickVolume} class=" scale-125" type="checkbox" bind:checked />
       </div>
     </div>
 
-    <div>
-      <p style="color: {textColor};" class="font-semibold mt-20 text-center">
+    <div class="mt-32">
+      <p style="color: {textColor};" class="font-semibold text-center">
         Ambient Sound
       </p>
 
