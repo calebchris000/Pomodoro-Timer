@@ -17,6 +17,8 @@
 
     $store.sound.volume = selectedVolume as "low" | "medium" | "high";
   }
+  $: console.log($store.sound.status)
+
 </script>
 
 <section
@@ -73,6 +75,12 @@
         class="border border-white font-semibold w-full rounded-xl h-10"
         type="button">High</button
       >
+    </div>
+
+    <div>
+      <p style="color: {textColor};" class="font-semibold mt-10 text-center">
+        Ambient Sound
+      </p>
     </div>
   </div>
 </section>

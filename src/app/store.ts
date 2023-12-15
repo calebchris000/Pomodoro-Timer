@@ -1,6 +1,6 @@
 import { writable, type Writable } from "svelte/store";
 import { isDefaults, type Defaults } from "./Logic/VerifyStoreDataType";
-
+import defaultSound from '$lib/sounds/default.mp3'
 let defaults: Defaults = {
   theme: {
     light: {
@@ -32,9 +32,11 @@ let defaults: Defaults = {
   },
 
   sound: {
-    volume: "medium",
-    activeSound: "",
-    collectionPath: []
+    volume: 1,
+    activeSound: defaultSound,
+    status: "inactive",
+    muted: false,
+    collectionPath: [{title: "Default", path: ""}]
   },
   timer: {
     signal: "reset",

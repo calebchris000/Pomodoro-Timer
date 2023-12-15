@@ -12,11 +12,18 @@ type Theme = {
   selected: "light" | "dark" | "custom";
 };
 
+type CollectionPath = {
+  title: string;
+  path: string;
+};
+
 type Sound = {
-  volume: "low" | "medium" | "high",
-  activeSound: string,
-  collectionPath: any[]
-}
+  volume: number;
+  status: "inactive" | "playing" | "paused";
+  activeSound: string;
+  muted: boolean;
+  collectionPath: CollectionPath[];
+};
 
 type Timer = {
   time: { minutes: number; seconds: number };
@@ -62,7 +69,9 @@ export function isDefaults(obj: any): obj is Defaults {
     typeof obj.theme.active.cto === "string" &&
     typeof obj.theme.collection === "object" &&
     typeof obj.theme.selected === "string" &&
-    typeof obj.sound.volume === "string" &&
+    typeof obj.sound.volume === "number" &&
+    typeof obj.sound.muted === "boolean" &&
+    typeof obj.sound.status === "string" &&
     typeof obj.sound.activeSound === "string" &&
     typeof obj.sound.collectionPath === "object" &&
     typeof obj.timer === "object" &&
