@@ -41,9 +41,9 @@ let defaults: Defaults = {
     status: "inactive",
     muted: false,
     collectionPath: [
-      { title: "Default", path: "/src/lib/sounds/default.mp3" },
-      { title: "Evening Stars", path: "/src/lib/sounds/evening_stars.mp3" },
-      { title: "Winter Stars", path: "/src/lib/sounds/winter_star.mp3" },
+      { title: "Default", path: defaultSound },
+      { title: "Evening Stars", path: EveningStars },
+      { title: "Winter Stars", path: WinterStars },
     ],
   },
   timer: {
