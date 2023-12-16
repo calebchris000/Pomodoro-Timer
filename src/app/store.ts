@@ -80,7 +80,7 @@ let defaults: Defaults = {
 export const store: Writable<Defaults> = writable(defaults);
 let data = localStorage.getItem("data");
 if (data && data.length > 0) {
-  let parsed = JSON.parse(data);
+  const parsed = JSON.parse(data);
   if (isDefaults(parsed)) {
     store.set({ ...parsed, currentPage: "splash" });
   } else {

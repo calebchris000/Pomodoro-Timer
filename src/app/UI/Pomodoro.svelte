@@ -14,6 +14,7 @@
   import Customization from "./Settings/CustomizationSettings/Customization.svelte";
   import SoundSettings from "./Settings/SoundSettings/SoundSettings.svelte";
   import TimerSetting from "./Settings/TimerSettings/TimerSetting.svelte";
+  import Account from "./Account/Account.svelte";
   $: signal = $store.timer.signal;
   $: primary = $store.theme.active.primary;
   $: currentPage = $store.currentPage;
@@ -59,6 +60,8 @@
       <Customization />
     {:else if currentPage === "sound"}
       <SoundSettings />
+    {:else if currentPage === "account"}
+    <Account />
     {/if}
   </section>
 </div>
