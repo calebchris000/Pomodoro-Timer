@@ -39,6 +39,7 @@ let defaults: Defaults = {
     activeSound: defaultSound,
     quickVolume: true,
     status: "inactive",
+    time: 0,
     muted: false,
     collectionPath: [
       { title: "Default", path: defaultSound },

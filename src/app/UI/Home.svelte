@@ -93,10 +93,8 @@
     src={activeSound}
     bind:currentTime={time}
     bind:paused
+    loop
     bind:volume
-    on:ended={() => {
-      time = 0;
-    }}
   />
   <Timer />
   <TipCard />
