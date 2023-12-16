@@ -32,7 +32,7 @@ type Timer = {
   runningTimer: { minutes: number; seconds: number };
   break: { minutes: number; seconds: number };
   prepare: boolean;
-  signal: string;
+  signal: "ongoing" | "reset" | "break" | "pause" | "resume";
   percentage: number;
 };
 
