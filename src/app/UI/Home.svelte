@@ -19,7 +19,6 @@
         break;
       case "ongoing":
         sendBreakSignal();
-
         break;
       default:
         $store.sound.status = "playing";
@@ -30,10 +29,20 @@
 
   function sendBreakSignal() {
     $store.timer.signal = "break";
+    $store.timer.isBreak = true;
   }
 
   function sendResumeSignal() {
+    const isBreak = $store.timer.isBreak;
+    if (isBreak) {
+      $store.timer.signal = "break";
+      return;
+    }
+
     $store.timer.signal = "resume";
+    $store.timer.isBreak = false;
+    // $store.timer.isBreak = ''
+
     $store.sound.status = paused ? "playing" : soundStatus;
   }
 
@@ -43,6 +52,7 @@
     }
     $store.timer.signal = "reset";
     $store.sound.status = "paused";
+    $store.timer.isBreak = false;
     $store.timer.percentage = 100;
   }
 
@@ -90,13 +100,12 @@
 
 <section class="mx-6 flex flex-col gap-5">
   <audio
+    preload={activeSound}
     src={activeSound}
     bind:currentTime={time}
     bind:paused
+    loop
     bind:volume
-    on:ended={() => {
-      time = 0;
-    }}
   />
   <Timer />
   <TipCard />

@@ -20,6 +20,7 @@ type CollectionPath = {
 type Sound = {
   volume: number;
   quickVolume: boolean;
+  time: number;
   status: "inactive" | "playing" | "paused";
   activeSound: string;
   muted: boolean;
@@ -31,7 +32,8 @@ type Timer = {
   runningTimer: { minutes: number; seconds: number };
   break: { minutes: number; seconds: number };
   prepare: boolean;
-  signal: string;
+  isBreak: boolean;
+  signal: "ongoing" | "reset" | "break" | "pause" | "resume";
   percentage: number;
 };
 
@@ -72,6 +74,7 @@ export function isDefaults(obj: any): obj is Defaults {
     typeof obj.theme.selected === "string" &&
     typeof obj.sound.volume === "number" &&
     typeof obj.sound.quickVolume === "boolean" &&
+    typeof obj.sound.time === "number" &&
     typeof obj.sound.muted === "boolean" &&
     typeof obj.sound.status === "string" &&
     typeof obj.sound.activeSound === "string" &&
@@ -81,6 +84,7 @@ export function isDefaults(obj: any): obj is Defaults {
     typeof obj.timer.time.minutes === "number" &&
     typeof obj.timer.time.seconds === "number" &&
     typeof obj.timer.runningTimer === "object" &&
+    typeof obj.timer.isBreak === "boolean" &&
     typeof obj.timer.runningTimer.minutes === "number" &&
     typeof obj.timer.runningTimer.seconds === "number" &&
     typeof obj.timer.break === "object" &&

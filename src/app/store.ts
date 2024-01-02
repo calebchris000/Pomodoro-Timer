@@ -38,7 +38,8 @@ let defaults: Defaults = {
     volume: 0.5,
     activeSound: defaultSound,
     quickVolume: true,
-    status: "inactive",
+    status: "paused",
+    time: 0,
     muted: false,
     collectionPath: [
       { title: "Default", path: defaultSound },
@@ -51,6 +52,7 @@ let defaults: Defaults = {
     time: { minutes: 25, seconds: 0 },
     runningTimer: { minutes: 0, seconds: 0 },
     break: { minutes: 5, seconds: 0 },
+    isBreak: false,
     prepare: false,
     percentage: 100,
   },
@@ -79,7 +81,7 @@ let defaults: Defaults = {
 export const store: Writable<Defaults> = writable(defaults);
 let data = localStorage.getItem("data");
 if (data && data.length > 0) {
-  let parsed = JSON.parse(data);
+  const parsed = JSON.parse(data);
   if (isDefaults(parsed)) {
     store.set({ ...parsed, currentPage: "splash" });
   } else {

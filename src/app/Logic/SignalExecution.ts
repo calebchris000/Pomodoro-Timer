@@ -12,14 +12,22 @@ export const SignalExecution = () => {
   let breakTime: TimerType = { minutes: 0, seconds: 0 };
 
   let signal: string = "";
+  let isBreak: boolean = false;
   const unsubscribe = store.subscribe((defaults) => {
     signal = defaults.timer.signal;
     timeFromStore = defaults.timer.time;
     breakTime = defaults.timer.break;
+    isBreak = defaults.timer.isBreak;
   });
 
   switch (signal) {
     case "ongoing":
+      if (isBreak) {
+        store.update((defaults) => {
+          defaults.timer.isBreak = false;
+          return defaults
+        });
+      }
       timer.set(timeFromStore.minutes, timeFromStore.seconds);
       timer.start();
       break;

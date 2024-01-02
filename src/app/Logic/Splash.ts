@@ -6,6 +6,14 @@ export const Splash = () => {
   setTimeout(() => {
     store.update((defaults) => {
       defaults.currentPage = "home";
+      if (
+        defaults.timer.signal === "ongoing" ||
+        defaults.timer.signal === "break"
+      ) {
+        defaults.timer.signal = "pause";
+      } else {
+        defaults.timer.signal = "reset";
+      }
 
       return defaults;
     });

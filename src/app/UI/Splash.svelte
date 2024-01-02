@@ -34,7 +34,7 @@
   }
 </script>
 
-<section style="background-color: {primary}; " class="fixed w-[100vw] h-[100vh] z-50">
+<section style="background-color: {primary}; " class="fixed w-[100vw] h-[100vh] z-[1000]">
   <div class="flex flex-col items-center justify-center relative top-60">
     <p style="color: {textColor}" class="text-4xl font-semibold relative}">Pomodoro <span class="font-bold">PRO</span></p>
     <Icon style='color: {textColor}' class="text-7xl" icon="icon-park-outline:tomato" />

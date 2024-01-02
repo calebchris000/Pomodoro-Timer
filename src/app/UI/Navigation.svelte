@@ -15,6 +15,13 @@
     });
   }
 
+  function gotoAccount() {
+    store.update(defaults => {
+      defaults.currentPage = 'account'
+      return defaults
+    })
+  }
+
   $: showOption = $store.showOption;
 
   $: secondary = $store.theme.active.secondary;
@@ -54,6 +61,7 @@
         >
         <button
           style="color: {textColor}"
+          on:click={gotoAccount}
           type="button"
           class={`hover:text-white text-left font-semibold py-2 px-3 flex items-center gap-2`}
           ><Icon class="text-xl" icon="mdi:account-outline" /> Account</button
