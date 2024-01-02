@@ -38,7 +38,7 @@ let defaults: Defaults = {
     volume: 0.5,
     activeSound: defaultSound,
     quickVolume: true,
-    status: "inactive",
+    status: "paused",
     time: 0,
     muted: false,
     collectionPath: [
@@ -52,6 +52,7 @@ let defaults: Defaults = {
     time: { minutes: 25, seconds: 0 },
     runningTimer: { minutes: 0, seconds: 0 },
     break: { minutes: 5, seconds: 0 },
+    isBreak: false,
     prepare: false,
     percentage: 100,
   },

@@ -32,6 +32,7 @@ type Timer = {
   runningTimer: { minutes: number; seconds: number };
   break: { minutes: number; seconds: number };
   prepare: boolean;
+  isBreak: boolean;
   signal: "ongoing" | "reset" | "break" | "pause" | "resume";
   percentage: number;
 };
@@ -83,6 +84,7 @@ export function isDefaults(obj: any): obj is Defaults {
     typeof obj.timer.time.minutes === "number" &&
     typeof obj.timer.time.seconds === "number" &&
     typeof obj.timer.runningTimer === "object" &&
+    typeof obj.timer.isBreak === "boolean" &&
     typeof obj.timer.runningTimer.minutes === "number" &&
     typeof obj.timer.runningTimer.seconds === "number" &&
     typeof obj.timer.break === "object" &&
