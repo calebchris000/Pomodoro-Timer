@@ -15,13 +15,15 @@ export const PercentageProgress = () => {
   let signal: string = "reset";
   const unsubscribe = store.subscribe((defaults) => {
     timeFromStore = defaults.timer.time;
+    breakTime = defaults.timer.break;
     runningTimer = defaults.timer.runningTimer;
     percentage = defaults.timer.percentage;
     signal = defaults.timer.signal;
   });
 
   let timeToSeconds = timeFromStore.minutes * 60 + timeFromStore.seconds;
-  let runningTimerToSeconds = Math.floor(runningTimer.minutes * 60) + runningTimer.seconds;
+  let runningTimerToSeconds =
+    Math.floor(runningTimer.minutes * 60) + runningTimer.seconds;
   if (signal === "ongoing") {
     percentage = PercentageFromTime(runningTimerToSeconds, timeToSeconds);
     store.update((defaults) => {

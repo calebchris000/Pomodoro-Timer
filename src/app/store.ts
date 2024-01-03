@@ -14,7 +14,7 @@ let defaults: Defaults = {
     dark: {
       primary: "#070d14",
       secondary: "#0d1926",
-      cto: "#b5d8fa",
+      cto: "#ffffff",
     },
     active: {
       primary: "#b5d8fa",
