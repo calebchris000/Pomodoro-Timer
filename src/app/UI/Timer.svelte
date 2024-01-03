@@ -1,8 +1,6 @@
 <script lang="ts">
   import TimerBody from "./TimerBody.svelte";
   import { store } from "../store";
-  import { PercentageFromTime } from "../Logic/PercentageFromTime.js";
-  import { PercentageProgress } from "../Logic/PercentageProgress";
 
   let timeFromStore = $store.timer.time;
   $: runningTimer = $store.timer.runningTimer;
@@ -48,9 +46,6 @@
   $: cto =
     $store.theme.selected === "light" ? $store.theme.active.cto : "white";
 
-  $: {
-    // signal, runningTimer, PercentageProgress();
-  }
   $: textColor = $store.theme.selected === "dark" ? "white" : "black";
   $: btnColor = $store.theme.selected === "dark" ? secondary : primary;
 </script>
